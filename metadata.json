@@ -1,0 +1,6 @@
+{
+  "name": "The Indian Record",
+  "description": "A premier national Indian digital news platform featuring breaking news, politics, market ticker, state coverage, editorial opinions, video news, e-paper, and live updates.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
