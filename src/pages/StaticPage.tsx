@@ -1,97 +1,121 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ShieldCheck, Mail, MapPin, Phone, FileText, CheckCircle2 } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 
 export const StaticPage: React.FC = () => {
   const { pageSlug } = useParams<{ pageSlug: string }>();
-
-  const pageTitle = pageSlug
-    ? pageSlug.replace('-', ' ').toUpperCase()
-    : 'ABOUT BHARAT POST MEDIA';
+  const slug = pageSlug || window.location.pathname.replace('/','') || 'about';
+  const titleMap: Record<string,string> = {
+    about: 'हमारे बारे में — चित्रकूट ज्योति',
+    contact: 'संपर्क करें',
+    privacy: 'गोपनीयता नीति',
+    terms: 'नियम व शर्तें',
+    advertise: 'विज्ञापन',
+    'editorial-policy': 'संपादकीय नीति',
+  };
+  const pageTitle = titleMap[slug] || slug.replace('-',' ').toUpperCase();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      
-      <div className="pb-3 mb-6 border-b-2 border-red-900">
-        <h1 className="font-serif-title font-black text-3xl sm:text-4xl text-slate-900 dark:text-slate-100">
-          {pageTitle}
-        </h1>
-        <p className="text-xs text-slate-500 font-mono mt-1">
-          OFFICIAL CORPORATE & EDITORIAL CHARTER • NEW DELHI BUREAU
-        </p>
+    <div className="max-w-4xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
+      <div className="pb-3 mb-6 border-b-2 border-[#8B0000]">
+        <h1 className="font-devanagari font-black text-2xl sm:text-3xl text-slate-900 dark:text-slate-100">{pageTitle}</h1>
+        <p className="text-xs text-slate-500 mt-1">चित्रकूट ज्योति • भोपाल (मप्र) • दैनिक समाचार पत्र एवं वेबपोर्टल</p>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm font-serif-body text-slate-800 dark:text-slate-200 space-y-6 text-sm sm:text-base leading-relaxed">
+      <div className="bg-white dark:bg-slate-900 p-5 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 text-sm leading-relaxed">
         
-        {pageSlug === 'about' || !pageSlug ? (
+        {(slug === 'about' || slug === '') && (
           <>
-            <p className="font-bold text-lg text-slate-900 dark:text-slate-100 italic">
-              Bharat Post Media Network is India’s premier independent digital newspaper, committed to fearless reporting, rigorous fact-checking, and deep regional coverage.
-            </p>
-
-            <h2 className="font-serif-title font-bold text-xl text-slate-900 dark:text-slate-100 uppercase pt-4 border-t border-slate-200 dark:border-slate-800">
-              Our Editorial Charter
-            </h2>
-            <p>
-              Founded with the pledge to deliver unbiased journalism across the Indian subcontinent, Bharat Post operates correspondents across 28 states and union territories, with specialized bureaus covering National Politics, Supreme Court & Law, Economy & Markets, Silicon Corridor Technology, and Olympic Sports.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6 font-sans-ui text-xs">
-              <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-slate-800">
-                <span className="font-bold text-red-800 dark:text-red-400 block mb-1">New Delhi Central Office</span>
-                <p className="text-slate-600 dark:text-slate-400">12 Parliament Street, Connaught Place, New Delhi 110001</p>
-              </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-slate-800">
-                <span className="font-bold text-red-800 dark:text-red-400 block mb-1">Mumbai Bureau</span>
-                <p className="text-slate-600 dark:text-slate-400">Nariman Point Media Complex, Fort, Mumbai 400021</p>
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <img src="/assets/logo.jpg" alt="लोगो" className="h-16 w-auto rounded border shadow-sm bg-white" />
+              <div>
+                <p className="font-devanagari font-bold text-lg text-[#8B0000]">दैनिक चित्रकूट ज्योति न्यूज — आपकी आवाज, आपकी खबर</p>
+                <p className="font-devanagari text-slate-700 dark:text-slate-300 mt-2">
+                  <b>About Us:</b> दैनिक चित्रकूट ज्योति न्यूज पेपर एवं वेबपोर्टल में वैचारिक, सकारात्मक, देश-दुनिया, क्राइम, सायबर अपराध, धर्म, ज्योतिष, वास्तु, कैरियर, लाइफस्टाइल सहित विविध विधाओं की ताजा खबरें मिलेंगी।
+                </p>
               </div>
             </div>
-          </>
-        ) : pageSlug === 'editorial-policy' ? (
-          <>
-            <h2 className="font-serif-title font-bold text-xl text-slate-900 dark:text-slate-100 uppercase">
-              Verification & Fact-Checking Protocol
-            </h2>
-            <p>
-              Every news piece published under the Bharat Post banner undergoes multi-editor cross-verification. Anonymous sources are permitted only under strict legal confidentiality agreements when public interest necessitates disclosure.
-            </p>
-            <p>
-              Opinions and editorial columns represent the individual views of contributing authors and do not constitute corporate endorsement by Bharat Post Media Network.
-            </p>
-          </>
-        ) : pageSlug === 'contact' ? (
-          <>
-            <h2 className="font-serif-title font-bold text-xl text-slate-900 dark:text-slate-100 uppercase">
-              Get in Touch with our Newsroom Desk
-            </h2>
-            <p>
-              Have a confidential news tip, press release, or editorial inquiry? Contact our central editorial team directly.
-            </p>
 
-            <form className="space-y-4 font-sans-ui text-xs max-w-lg mt-6">
-              <div>
-                <label className="block font-bold mb-1">Your Full Name</label>
-                <input type="text" className="w-full bg-slate-50 dark:bg-slate-950 p-2.5 rounded border border-slate-200 dark:border-slate-800" placeholder="e.g. Rajesh Kumar" required />
+            <div className="grid sm:grid-cols-2 gap-4 font-devanagari">
+              <div className="p-4 bg-amber-50 dark:bg-slate-800 rounded-xl border border-amber-200">
+                <h3 className="font-black text-[#8B0000] mb-2">हमारी विशेषताएँ</h3>
+                <ul className="space-y-1 text-xs list-disc pl-4 text-slate-700 dark:text-slate-300">
+                  <li>मध्यप्रदेश • चित्रकूट • भोपाल सहित प्रदेश के हर जिले से ग्राउंड रिपोर्ट</li>
+                  <li>देश-विदेश, प्रदेश, खेल, धर्म, मनोरंजन, विचार, हेल्थ-लाइफस्टाइल, टेक कवरेज</li>
+                  <li>भविष्य जिज्ञासा — राशिफल, पंचांग, व्रत-त्यौहार दैनिक अपडेट</li>
+                  <li>ई-पेपर — असली अखबार जैसा पठनीय अनुभव मोबाइल पर</li>
+                </ul>
               </div>
-              <div>
-                <label className="block font-bold mb-1">Email Address</label>
-                <input type="email" className="w-full bg-slate-50 dark:bg-slate-950 p-2.5 rounded border border-slate-200 dark:border-slate-800" placeholder="e.g. rajesh@example.com" required />
+              <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border">
+                <h3 className="font-black text-slate-900 dark:text-white mb-2">संपादकीय कार्यालय</h3>
+                <div className="flex gap-3">
+                  <img src="/assets/founder.jpg" alt="स्नेहलता सोनी" className="w-14 h-14 rounded-full object-cover border-2 border-[#8B0000]" />
+                  <div className="text-xs">
+                    <p className="font-black font-devanagari text-sm">स्नेहलता सोनी</p>
+                    <p className="text-[#8B0000] font-bold">(संपादक)</p>
+                    <p className="text-slate-600">भोपाल (मप्र)</p>
+                  </div>
+                </div>
+                <div className="mt-3 space-y-1 text-xs">
+                  <p className="flex items-center gap-2"><Phone className="w-3 h-3 text-[#8B0000]" /> 8827294576 , 8982635688</p>
+                  <p className="flex items-center gap-2 break-all"><Mail className="w-3 h-3 text-[#8B0000]" /> chitrakootjyotinews@gmail.com</p>
+                  <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-[#8B0000]" /> भोपाल, मध्यप्रदेश</p>
+                </div>
               </div>
-              <div>
-                <label className="block font-bold mb-1">Message / Confidential News Tip</label>
-                <textarea className="w-full bg-slate-50 dark:bg-slate-950 p-3 rounded border border-slate-200 dark:border-slate-800 h-32" placeholder="Details of your news report or inquiry..." required />
-              </div>
-              <button type="submit" className="bg-red-900 hover:bg-red-800 text-white font-bold px-6 py-2.5 rounded uppercase tracking-wider">
-                Send to Editorial Desk
-              </button>
-            </form>
+            </div>
+
+            <div className="bg-[#8B0000] text-white p-4 rounded-xl text-center">
+              <p className="font-devanagari font-bold">“सत्य, साहस और सरोकार — यही है चित्रकूट ज्योति की पहचान”</p>
+              <p className="text-xs text-amber-200 mt-1">वैचारिक • सकारात्मक • विश्वसनीय</p>
+            </div>
           </>
-        ) : (
+        )}
+
+        {slug === 'contact' && (
           <>
-            <p>
-              This official document outlines the terms and conditions governing the access and use of Bharat Post digital services, e-Paper editions, mobile applications, and subscriber accounts.
-            </p>
+            <h2 className="font-devanagari font-bold text-xl text-[#8B0000]">संपर्क सूत्र</h2>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="bg-amber-50 dark:bg-slate-800 p-4 rounded-xl border border-amber-200">
+                <h3 className="font-black font-devanagari flex items-center gap-2"><img src="/assets/founder.jpg" className="w-8 h-8 rounded-full object-cover" /> स्नेहलता सोनी (संपादक)</h3>
+                <p className="text-xs mt-2 space-y-1">
+                  <span className="flex items-center gap-2"><MapPin className="w-3 h-3" /> भोपाल (मप्र)</span>
+                  <a href="tel:8827294576" className="flex items-center gap-2 text-[#8B0000] font-bold"><Phone className="w-3 h-3" /> 8827294576</a>
+                  <a href="tel:8982635688" className="flex items-center gap-2 text-[#8B0000] font-bold"><Phone className="w-3 h-3" /> 8982635688</a>
+                  <a href="mailto:chitrakootjyotinews@gmail.com" className="flex items-center gap-2 break-all"><Mail className="w-3 h-3" /> chitrakootjyotinews@gmail.com</a>
+                </p>
+              </div>
+              <form className="space-y-3">
+                <input placeholder="आपका नाम" className="w-full p-2.5 rounded border bg-slate-50 dark:bg-slate-950 text-sm" />
+                <input placeholder="मोबाइल / ईमेल" className="w-full p-2.5 rounded border bg-slate-50 dark:bg-slate-950 text-sm" />
+                <textarea placeholder="संदेश लिखें..." className="w-full p-3 rounded border bg-slate-50 dark:bg-slate-950 h-24 text-sm" />
+                <button type="button" className="w-full bg-[#8B0000] text-white font-bold py-2.5 rounded">भेजें</button>
+                <p className="text-[11px] text-slate-500 text-center">समाचार, विज्ञापन, सुझाव हेतु संपर्क करें</p>
+              </form>
+            </div>
           </>
+        )}
+
+        {(slug === 'privacy' || slug === 'terms') && (
+          <p className="font-devanagari text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
+            यह वेबसाइट दैनिक चित्रकूट ज्योति द्वारा संचालित है। सभी समाचार, फोटो, वीडियो की कॉपीराइट सुरक्षित है। बिना अनुमति पुनर्प्रकाशन वर्जित। विज्ञापन एवं प्रायोजित सामग्री स्पष्ट रूप से चिह्नित रहती है।
+          </p>
+        )}
+
+        {slug === 'advertise' && (
+          <div className="space-y-3 font-devanagari">
+            <h3 className="font-black text-[#8B0000] text-lg">विज्ञापन हेतु संपर्क</h3>
+            <p className="text-sm text-slate-600">प्रिंट + वेब + ई-पेपर कॉम्बो पैकेज उपलब्ध। जिला स्तर तक लक्षित विज्ञापन।</p>
+            <div className="bg-amber-50 border border-amber-200 p-3 rounded-lg text-sm">
+              <p>📞 8827294576, 8982635688</p><p>✉️ chitrakootjyotinews@gmail.com</p><p>📍 भोपाल (मप्र) — संपादक: स्नेहलता सोनी</p>
+            </div>
+          </div>
+        )}
+
+        {slug === 'editorial-policy' && (
+          <div className="space-y-3 font-devanagari text-sm">
+            <h3 className="font-black text-[#8B0000]">संपादकीय नीति</h3>
+            <p>चित्रकूट ज्योति निष्पक्ष, तथ्यपरक पत्रकारिता के लिए प्रतिबद्ध है। हर खबर दो-स्तरीय संपादकीय जाँच के बाद प्रकाशित होती है। अफवाह, भ्रामक प्रचार से दूरी।</p>
+          </div>
         )}
 
       </div>

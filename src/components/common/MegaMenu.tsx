@@ -1,137 +1,81 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNews } from '../../context/NewsContext';
-import { X, TrendingUp, MapPin, ChevronRight, Bookmark } from 'lucide-react';
+import { X, MapPin, Sparkles } from 'lucide-react';
 
-interface MegaMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-  activeCategory?: string;
-}
+interface MegaMenuProps { isOpen: boolean; onClose: () => void; }
 
-const indianStates = [
-  { name: 'Delhi', cities: ['New Delhi', 'NCR'] },
-  { name: 'Gujarat', cities: ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot'] },
-  { name: 'Maharashtra', cities: ['Mumbai', 'Pune', 'Nagpur', 'Thane'] },
-  { name: 'Rajasthan', cities: ['Jaipur', 'Jodhpur', 'Udaipur'] },
-  { name: 'Uttar Pradesh', cities: ['Lucknow', 'Varanasi', 'Kanpur', 'Noida'] },
-  { name: 'Karnataka', cities: ['Bengaluru', 'Mysuru', 'Hubballi'] },
-  { name: 'Tamil Nadu', cities: ['Chennai', 'Coimbatore', 'Madurai'] },
-  { name: 'West Bengal', cities: ['Kolkata', 'Howrah', 'Siliguri'] },
-  { name: 'Kerala', cities: ['Thiruvananthapuram', 'Kochi', 'Kozhikode'] }
+const mpDistricts = [
+  { name: 'भोपाल', cities: ['भोपाल', 'सीहोर', 'रायसेन'] },
+  { name: 'इंदौर', cities: ['इंदौर', 'धार', 'उज्जैन'] },
+  { name: 'जबलपुर', cities: ['जबलपुर', 'कटनी', 'मंडला'] },
+  { name: 'ग्वालियर', cities: ['ग्वालियर', 'मुरैना', 'भिंड'] },
+  { name: 'रीवा', cities: ['रीवा', 'सतना', 'सीधी'] },
+  { name: 'चित्रकूट', cities: ['चित्रकूट', 'मऊ', 'सतना'] },
 ];
 
 export const MegaMenu: React.FC<MegaMenuProps> = ({ isOpen, onClose }) => {
   const { articles } = useNews();
   if (!isOpen) return null;
-
   const topStories = articles.slice(0, 4);
-
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-center animate-fade-in overflow-y-auto p-2 sm:p-4 md:pt-20">
-      <div className="bg-[#FAF9F6] dark:bg-[#0F172A] text-[#111827] dark:text-slate-100 w-full max-w-7xl h-fit max-h-[90vh] overflow-y-auto border-t-4 border-b-4 border-red-800 shadow-2xl p-5 sm:p-6 lg:p-8 rounded-xl my-auto">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-6 sticky top-0 bg-[#FAF9F6] dark:bg-[#0F172A] z-10 pt-1">
-          <div className="flex items-center space-x-2 sm:space-x-3">
-            <span className="font-serif-title font-black text-lg sm:text-xl tracking-tight text-red-900 dark:text-red-500">
-              ALL SECTIONS & DESKS
-            </span>
-            <span className="text-[10px] sm:text-xs bg-red-100 dark:bg-red-950 text-red-800 dark:text-red-300 font-bold px-2 py-0.5 rounded uppercase">
-              BHARAT POST INDEX
-            </span>
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-center animate-fade-in overflow-y-auto p-2 sm:p-4 md:pt-16">
+      <div className="bg-[#FEFCF8] dark:bg-[#0F172A] w-full max-w-7xl h-fit max-h-[92vh] overflow-y-auto border-t-4 border-[#8B0000] shadow-2xl p-4 sm:p-6 rounded-xl my-auto">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 mb-4 sticky top-0 bg-[#FEFCF8] dark:bg-[#0F172A] z-10">
+          <div className="flex items-center gap-2">
+            <span className="font-devanagari font-black text-lg text-[#8B0000]">सभी वर्ग</span>
+            <span className="text-[10px] bg-[#8B0000] text-white font-bold px-2 py-0.5 rounded">चित्रकूट ज्योति इंडेक्स</span>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-red-900 hover:text-white transition-colors"
-            title="Close Menu"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <button onClick={onClose} className="p-2 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-[#8B0000] hover:text-white"><X className="w-5 h-5" /></button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8">
-          {/* Column 1: Core Desks */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div>
-            <h4 className="font-sans-ui font-bold text-xs uppercase tracking-wider text-red-900 dark:text-red-400 mb-3 border-b border-red-800/30 pb-1">
-              National & Politics
-            </h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/india" onClick={onClose} className="hover:text-red-700 font-medium">India News</Link></li>
-              <li><Link to="/politics" onClick={onClose} className="hover:text-red-700 font-medium">Politics & Parliament</Link></li>
-              <li><Link to="/category/Elections" onClick={onClose} className="hover:text-red-700">Election Watch</Link></li>
-              <li><Link to="/opinion" onClick={onClose} className="hover:text-red-700">Opinion & Columns</Link></li>
-              <li><Link to="/explained" onClick={onClose} className="hover:text-red-700">Explainers & Analysis</Link></li>
-              <li><Link to="/fact-check" onClick={onClose} className="hover:text-red-700">Fact Check Desk</Link></li>
+            <h4 className="font-devanagari font-bold text-xs uppercase tracking-wider text-[#8B0000] mb-3 border-b border-red-200 pb-1">मुख्य समाचार</h4>
+            <ul className="space-y-2 text-sm font-devanagari">
+              <li><Link to="/desh-videsh" onClick={onClose} className="hover:text-[#8B0000] font-medium">देश-विदेश</Link></li>
+              <li><Link to="/pradesh" onClick={onClose} className="hover:text-[#8B0000]">प्रदेश</Link></li>
+              <li><Link to="/khel" onClick={onClose} className="hover:text-[#8B0000]">खेल</Link></li>
+              <li><Link to="/dharm" onClick={onClose} className="hover:text-[#8B0000]">धर्म</Link></li>
+              <li><Link to="/manoranjan" onClick={onClose} className="hover:text-[#8B0000]">मनोरंजन</Link></li>
+              <li><Link to="/vichar" onClick={onClose} className="hover:text-[#8B0000]">विचार</Link></li>
+              <li><Link to="/lifestyle-health" onClick={onClose} className="hover:text-[#8B0000]">लाइफस्टाइल & हेल्थ</Link></li>
+              <li><Link to="/tech" onClick={onClose} className="hover:text-[#8B0000]">टेक</Link></li>
             </ul>
           </div>
 
-          {/* Column 2: Financial & Tech */}
           <div>
-            <h4 className="font-sans-ui font-bold text-xs uppercase tracking-wider text-red-900 dark:text-red-400 mb-3 border-b border-red-800/30 pb-1">
-              Business & Economy
-            </h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/business" onClick={onClose} className="hover:text-red-700 font-medium">Business Headlines</Link></li>
-              <li><Link to="/markets" onClick={onClose} className="hover:text-red-700 font-medium">Stock Markets & RBI</Link></li>
-              <li><Link to="/technology" onClick={onClose} className="hover:text-red-700">Tech & AI Innovation</Link></li>
-              <li><Link to="/startups" onClick={onClose} className="hover:text-red-700">Startups & Unicorns</Link></li>
-              <li><Link to="/automobile" onClick={onClose} className="hover:text-red-700">Automobile & EVs</Link></li>
+            <h4 className="font-devanagari font-bold text-xs uppercase tracking-wider text-[#8B0000] mb-3 border-b border-red-200 pb-1 flex items-center gap-1"><Sparkles className="w-3 h-3" /> भविष्य जिज्ञासा</h4>
+            <ul className="space-y-2 text-sm font-devanagari">
+              <li><Link to="/bhavishya/bhavishyavani" onClick={onClose} className="hover:text-[#8B0000]">भविष्यवाणी</Link></li>
+              <li><Link to="/bhavishya/rashifal" onClick={onClose} className="hover:text-[#8B0000]">दैनिक राशिफल</Link></li>
+              <li><Link to="/bhavishya/panchang" onClick={onClose} className="hover:text-[#8B0000]">दैनिक पंचांग</Link></li>
+              <li><Link to="/bhavishya/vrat-tyohar" onClick={onClose} className="hover:text-[#8B0000]">व्रत-त्यौहार</Link></li>
+              <li className="pt-2 border-t"><Link to="/epaper" onClick={onClose} className="font-bold text-[#8B0000]">📰 ई-पेपर</Link></li>
+              <li><Link to="/videos" onClick={onClose} className="hover:text-[#8B0000]">वीडियो</Link></li>
+              <li><Link to="/photos" onClick={onClose} className="hover:text-[#8B0000]">फोटो गैलरी</Link></li>
             </ul>
           </div>
 
-          {/* Column 3: Sports & Culture */}
           <div>
-            <h4 className="font-sans-ui font-bold text-xs uppercase tracking-wider text-red-900 dark:text-red-400 mb-3 border-b border-red-800/30 pb-1">
-              Sports & Entertainment
-            </h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/cricket" onClick={onClose} className="hover:text-red-700 font-medium">Cricket Central</Link></li>
-              <li><Link to="/sports" onClick={onClose} className="hover:text-red-700">Olympic & World Sports</Link></li>
-              <li><Link to="/bollywood" onClick={onClose} className="hover:text-red-700 font-medium">Bollywood & Cinema</Link></li>
-              <li><Link to="/lifestyle" onClick={onClose} className="hover:text-red-700">Lifestyle & Culture</Link></li>
-              <li><Link to="/travel" onClick={onClose} className="hover:text-red-700">Travel & Heritage</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 4: States & Cities */}
-          <div>
-            <h4 className="font-sans-ui font-bold text-xs uppercase tracking-wider text-red-900 dark:text-red-400 mb-3 border-b border-red-800/30 pb-1 flex items-center space-x-1">
-              <MapPin className="w-3.5 h-3.5 text-red-700" />
-              <span>State & City Bureau</span>
-            </h4>
-            <div className="space-y-1 text-xs">
-              {indianStates.map(st => (
-                <div key={st.name} className="py-1 border-b border-slate-200 dark:border-slate-800/60">
-                  <Link to={`/state/${st.name.toLowerCase()}`} onClick={onClose} className="font-semibold hover:text-red-700 block">
-                    {st.name}
-                  </Link>
-                  <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                    {st.cities.join(' • ')}
-                  </div>
+            <h4 className="font-devanagari font-bold text-xs uppercase tracking-wider text-[#8B0000] mb-3 border-b border-red-200 pb-1 flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> मप्र ब्यूरो</h4>
+            <div className="space-y-1 text-xs font-devanagari">
+              {mpDistricts.map(st => (
+                <div key={st.name} className="py-1 border-b border-slate-100 dark:border-slate-800/60">
+                  <Link to={`/state/madhya-pradesh`} onClick={onClose} className="font-semibold hover:text-[#8B0000] block">{st.name}</Link>
+                  <div className="text-[11px] text-slate-500">{st.cities.join(' • ')}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Column 5: Featured Top Stories */}
-          <div className="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-800">
-            <h4 className="font-sans-ui font-bold text-xs uppercase tracking-wider text-red-900 dark:text-red-400 mb-3 flex items-center space-x-1">
-              <TrendingUp className="w-3.5 h-3.5 text-red-700" />
-              <span>Top Headlines</span>
-            </h4>
+          <div className="bg-amber-50 dark:bg-slate-900 p-4 rounded-lg border border-amber-200 dark:border-slate-800">
+            <h4 className="font-devanagari font-bold text-xs uppercase text-[#8B0000] mb-3">ताजा सुर्खियां</h4>
             <div className="space-y-3">
               {topStories.map(art => (
-                <Link
-                  key={art.id}
-                  to={`/article/${art.id}`}
-                  onClick={onClose}
-                  className="group block"
-                >
-                  <p className="text-xs font-serif-title font-semibold group-hover:text-red-800 dark:group-hover:text-red-400 line-clamp-2 leading-snug">
-                    {art.title}
-                  </p>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 block">
-                    {art.category} • {art.readTimeMinutes}m read
-                  </span>
+                <Link key={art.id} to={`/article/${art.id}`} onClick={onClose} className="group block border-b border-amber-100 dark:border-slate-800 pb-2 last:border-0">
+                  <p className="text-xs font-bold font-devanagari group-hover:text-[#8B0000] line-clamp-2 leading-snug">{art.hindiTitle || art.title}</p>
+                  <span className="text-[10px] text-slate-500">{art.category} • {art.readTimeMinutes} मिनट</span>
                 </Link>
               ))}
             </div>

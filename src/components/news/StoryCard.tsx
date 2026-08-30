@@ -74,8 +74,8 @@ export const StoryCard: React.FC<StoryCardProps> = ({ article, variant = 'standa
 
             {/* Title & Subheadline over image on desktop */}
             <div className="absolute bottom-4 left-4 right-4 text-white">
-              <h2 className="font-serif-title font-bold text-xl sm:text-2xl md:text-3xl leading-tight group-hover:text-amber-300 transition-colors">
-                {article.title}
+              <h2 className="font-devanagari font-bold text-xl sm:text-2xl md:text-3xl leading-tight group-hover:text-amber-300 transition-colors">
+                {article.hindiTitle || article.title}
               </h2>
             </div>
           </div>
@@ -140,8 +140,8 @@ export const StoryCard: React.FC<StoryCardProps> = ({ article, variant = 'standa
               <span>•</span>
               <span className="text-slate-400 font-normal">{article.readTimeMinutes}m read</span>
             </div>
-            <h4 className="font-serif-title font-semibold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-red-800 dark:group-hover:text-red-400 leading-snug line-clamp-2">
-              {article.title}
+            <h4 className="font-devanagari font-semibold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-red-800 dark:group-hover:text-red-400 leading-snug line-clamp-2">
+              {article.hindiTitle || article.title}
             </h4>
             <span className="text-[10px] text-slate-400 dark:text-slate-500 block mt-1">
               By {article.author.name}
@@ -166,8 +166,8 @@ export const StoryCard: React.FC<StoryCardProps> = ({ article, variant = 'standa
             <span className="text-[10px] font-bold uppercase text-red-800 dark:text-red-400 block mb-0.5">
               {article.category}
             </span>
-            <h4 className="font-serif-title font-semibold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-red-800 dark:group-hover:text-red-400 leading-snug line-clamp-2">
-              {article.title}
+            <h4 className="font-devanagari font-semibold text-xs sm:text-sm text-slate-900 dark:text-slate-100 group-hover:text-red-800 dark:group-hover:text-red-400 leading-snug line-clamp-2">
+              {article.hindiTitle || article.title}
             </h4>
             <span className="text-[10px] text-slate-400 dark:text-slate-500 block mt-1">
               {formattedDate} • {article.viewsCount.toLocaleString()} reads
@@ -203,8 +203,8 @@ export const StoryCard: React.FC<StoryCardProps> = ({ article, variant = 'standa
 
         <div className="p-4 flex-1 flex flex-col justify-between">
           <div>
-            <h3 className="font-serif-title font-bold text-sm sm:text-base text-slate-900 dark:text-slate-100 group-hover:text-red-800 dark:group-hover:text-red-400 leading-snug line-clamp-2">
-              {article.title}
+            <h3 className="font-devanagari font-bold text-sm sm:text-base text-slate-900 dark:text-slate-100 group-hover:text-red-800 dark:group-hover:text-red-400 leading-snug line-clamp-2">
+              {article.hindiTitle || article.title}
             </h3>
             <p className="font-serif-body text-xs text-slate-600 dark:text-slate-400 line-clamp-2 mt-2 leading-relaxed">
               {article.subheadline}

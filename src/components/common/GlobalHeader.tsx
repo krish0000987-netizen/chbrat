@@ -2,282 +2,236 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useNews } from '../../context/NewsContext';
 import { MegaMenu } from './MegaMenu';
-import { Search, Sun, Moon, Bookmark, Menu, User, Sparkles, MapPin, Globe, ChevronDown, Bell, Newspaper, Volume2 } from 'lucide-react';
-import { LanguageCode } from '../../types';
+import { Search, Sun, Moon, Bookmark, Menu, User, MapPin, ChevronDown, Newspaper, Sparkles, X } from 'lucide-react';
 
-const cities = ['New Delhi', 'Mumbai', 'Bengaluru', 'Ahmedabad', 'Kolkata', 'Chennai', 'Jaipur'];
-
-const languages: { code: LanguageCode; label: string }[] = [
-  { code: 'en', label: 'English' },
-  { code: 'hi', label: 'हिंदी' },
-  { code: 'gu', label: 'ગુજરાતી' },
-  { code: 'mr', label: 'मराठी' },
-  { code: 'ta', label: 'தமிழ்' },
-  { code: 'bn', label: 'বাংলা' }
-];
+const cities = ['भोपाल', 'इंदौर', 'जबलपुर', 'ग्वालियर', 'रीवा', 'सतना', 'चित्रकूट'];
 
 export const GlobalHeader: React.FC = () => {
-  const { 
-    theme, 
-    toggleTheme, 
-    language, 
-    setLanguage, 
-    savedArticleIds, 
-    setIsSearchOpen,
-    userProfile 
-  } = useNews();
-
-  const [selectedCity, setSelectedCity] = useState('New Delhi');
+  const { theme, toggleTheme, savedArticleIds, setIsSearchOpen } = useNews();
+  const [selectedCity, setSelectedCity] = useState('भोपाल');
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
-  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
-  
+  const [isBhavishyaOpen, setIsBhavishyaOpen] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  const currentDate = new Date().toLocaleDateString('en-IN', {
+  const currentDate = new Date().toLocaleDateString('hi-IN', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   });
 
+  // Hindi main categories with mapping to routes
   const mainCategories = [
-    { name: 'Home', path: '/' },
-    { name: 'India', path: '/india' },
-    { name: 'Politics', path: '/politics' },
-    { name: 'Business', path: '/business' },
-    { name: 'Markets', path: '/markets' },
-    { name: 'World', path: '/world' },
-    { name: 'Tech & AI', path: '/technology' },
-    { name: 'Cricket', path: '/cricket' },
-    { name: 'Entertainment', path: '/entertainment' },
-    { name: 'Lifestyle', path: '/lifestyle' },
-    { name: 'Opinion', path: '/opinion' },
-    { name: 'Explainers', path: '/explained' },
-    { name: 'State & City', path: '/state/gujarat' },
-    { name: 'Videos', path: '/videos' },
-    { name: 'Photos', path: '/photos' },
-    { name: 'Web Stories', path: '/web-stories' },
-    { name: 'Live', path: '/live' },
-    { name: 'E-Paper', path: '/epaper' }
+    { name: 'मुखपृष्ठ', path: '/', hi: 'Home' },
+    { name: 'देश-विदेश', path: '/desh-videsh', hi: 'देश-विदेश' },
+    { name: 'प्रदेश', path: '/pradesh', hi: 'प्रदेश' },
+    { name: 'खेल', path: '/khel', hi: 'खेल' },
+    { name: 'धर्म', path: '/dharm', hi: 'धर्म' },
+    { name: 'मनोरंजन', path: '/manoranjan', hi: 'मनोरंजन' },
+    { name: 'विचार', path: '/vichar', hi: 'विचार' },
+    { name: 'लाइफस्टाइल & हेल्थ', path: '/lifestyle-health', hi: 'Lifestyle Health' },
+    { name: 'टेक', path: '/tech', hi: 'टेक' },
+    { name: 'ई-पेपर', path: '/epaper', hi: 'E-Paper' },
+  ];
+
+  const bhavishyaItems = [
+    { name: 'भविष्यवाणी', path: '/bhavishya/bhavishyavani' },
+    { name: 'दैनिक राशिफल', path: '/bhavishya/rashifal' },
+    { name: 'दैनिक पंचांग', path: '/bhavishya/panchang' },
+    { name: 'व्रत-त्यौहार', path: '/bhavishya/vrat-tyohar' },
   ];
 
   return (
-    <header className="bg-[#FAF9F6] dark:bg-[#0B0F17] text-[#111827] dark:text-slate-100 border-b border-slate-300 dark:border-slate-800 transition-colors">
+    <header className="bg-white dark:bg-[#0B0F17] text-[#111827] dark:text-slate-100 border-b border-slate-200 dark:border-slate-800 transition-colors">
       {/* 1. TOP UTILITY BAR */}
-      <div className="border-b border-slate-200 dark:border-slate-800/80 bg-slate-100/70 dark:bg-slate-950/80 text-[10px] sm:text-[11px] py-1.5 px-2 sm:px-4 font-sans-ui">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-1 overflow-x-auto no-scrollbar">
-          
-          {/* Left: Date & City Selector */}
-          <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
-            <span className="font-medium text-slate-600 dark:text-slate-400 hidden sm:inline">
-              {currentDate}
-            </span>
-
-            <div className="flex items-center space-x-0.5 sm:space-x-1 text-slate-700 dark:text-slate-300">
-              <MapPin className="w-3 h-3 text-red-800 dark:text-red-400 shrink-0" />
+      <div className="bg-[#8B0000] dark:bg-[#7a0000] text-white text-[10px] sm:text-[11px] py-1.5 px-3 sm:px-4 font-sans-ui">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-1 min-w-0">
+            <span className="hidden sm:inline font-medium text-amber-100 truncate">{currentDate} • भोपाल</span>
+            <span className="sm:hidden font-medium text-amber-100">{new Date().toLocaleDateString('hi-IN', { day:'numeric', month:'short'})}</span>
+            <div className="hidden md:flex items-center gap-1 text-amber-50">
+              <MapPin className="w-3 h-3 shrink-0" />
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="bg-transparent border-none outline-none font-semibold cursor-pointer py-0 text-slate-800 dark:text-slate-200 text-[10px] sm:text-xs"
+                className="bg-transparent border-none outline-none font-semibold cursor-pointer py-0 text-white text-[11px]"
               >
                 {cities.map(c => (
-                  <option key={c} value={c} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">{c}</option>
+                  <option key={c} value={c} className="bg-white text-slate-900">{c}</option>
                 ))}
               </select>
-              <span className="text-slate-500 font-mono hidden md:inline">• 28°C Sunny</span>
+              <span className="text-amber-200">• 29°C</span>
             </div>
           </div>
 
-          {/* Right: E-Paper, Language, Theme, Subscribe, Login */}
-          <div className="flex items-center space-x-1.5 sm:space-x-3 shrink-0">
-            <Link
-              to="/epaper"
-              className="hidden sm:flex items-center space-x-1 font-bold text-red-800 dark:text-red-400 hover:underline"
-            >
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <Link to="/epaper" className="hidden md:flex items-center gap-1 font-bold bg-white text-[#8B0000] px-2.5 py-1 rounded-full hover:bg-amber-100 transition-colors">
               <Newspaper className="w-3.5 h-3.5" />
-              <span>E-Paper</span>
+              <span>ई-पेपर पढ़ें</span>
             </Link>
-
-            {/* Language Selector */}
-            <div className="relative">
-              <button
-                onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                className="flex items-center space-x-0.5 font-medium hover:text-red-800 dark:hover:text-red-400 px-1 py-0.5"
-              >
-                <Globe className="w-3 h-3 text-slate-500" />
-                <span>{languages.find(l => l.code === language)?.label}</span>
-                <ChevronDown className="w-2.5 h-2.5 text-slate-400" />
-              </button>
-
-              {isLangDropdownOpen && (
-                <div className="absolute right-0 mt-1 w-28 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl rounded py-1 z-50">
-                  {languages.map(l => (
-                    <button
-                      key={l.code}
-                      onClick={() => {
-                        setLanguage(l.code);
-                        setIsLangDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-3 py-1 hover:bg-red-50 dark:hover:bg-slate-800 text-xs font-medium"
-                    >
-                      {l.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Theme Toggle Button */}
+            <a href="tel:+918827294576" className="hidden lg:block font-semibold text-amber-100 hover:text-white">📞 8827294576</a>
             <button
               onClick={toggleTheme}
-              className="flex items-center space-x-1 px-1.5 py-0.5 rounded bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all border border-slate-300 dark:border-slate-700 text-[10px] sm:text-[11px] font-bold text-slate-800 dark:text-slate-200"
-              title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to White Mode'}
+              className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+              title={theme === 'light' ? 'डार्क मोड' : 'लाइट मोड'}
             >
-              {theme === 'light' ? (
-                <>
-                  <Sun className="w-3 h-3 text-amber-600 shrink-0" />
-                  <span className="hidden xs:inline">WHITE</span>
-                </>
-              ) : (
-                <>
-                  <Moon className="w-3 h-3 text-amber-400 shrink-0" />
-                  <span className="hidden xs:inline">DARK</span>
-                </>
-              )}
+              {theme === 'light' ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5 text-amber-300" />}
             </button>
-
-            {/* Saved Articles Bookmark Quick Link */}
-            <Link
-              to="/profile"
-              className="flex items-center space-x-1 relative text-slate-700 dark:text-slate-300 hover:text-red-800 p-0.5"
-              title="Saved Articles"
-            >
-              <Bookmark className="w-3.5 h-3.5" />
-              {savedArticleIds.length > 0 && (
-                <span className="bg-red-800 text-white font-bold text-[8px] w-3.5 h-3.5 rounded-full flex items-center justify-center -top-1 -right-1">
-                  {savedArticleIds.length}
-                </span>
-              )}
+            <Link to="/profile" className="relative p-1 hover:text-amber-200">
+              <Bookmark className="w-4 h-4" />
+              {savedArticleIds.length > 0 && <span className="absolute -top-1 -right-1 bg-amber-400 text-black font-bold text-[8px] w-3.5 h-3.5 rounded-full flex items-center justify-center">{savedArticleIds.length}</span>}
             </Link>
-
-            {/* Subscribe CTA */}
-            <Link
-              to="/subscribe"
-              className="bg-red-900 hover:bg-red-950 text-white font-bold px-2 py-0.5 rounded text-[9px] sm:text-[10px] tracking-wide uppercase transition-colors"
-            >
-              SUBSCRIBE
-            </Link>
-
-            {/* Dedicated Login Button */}
-            <Link
-              to="/login"
-              className="bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold px-2 py-0.5 rounded text-[9px] sm:text-[10px] tracking-wide uppercase transition-colors flex items-center space-x-1 border border-slate-700"
-            >
-              <User className="w-3 h-3 text-amber-400" />
-              <span>LOGIN</span>
+            <Link to="/login" className="bg-white text-[#8B0000] font-bold px-3 py-1 rounded-full text-[11px] hover:bg-amber-50 hidden sm:inline-flex items-center gap-1">
+              <User className="w-3 h-3" /> लॉगिन
             </Link>
           </div>
         </div>
       </div>
 
-      {/* 2. MAIN HEADER BRAND LOGO AREA */}
-      <div className="py-3 sm:py-4 px-3 sm:px-4 border-b border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2.5 sm:gap-3">
-          
-          {/* Left spacer/tagline on desktop */}
-          <div className="hidden lg:block text-xs font-serif-body text-slate-500 dark:text-slate-400 italic w-1/4">
-            “Independent Journal of Record for India, Markets & Global Affairs”
+      {/* 2. MAIN BRAND AREA - Logo + Title + Founder */}
+      <div className="py-2 sm:py-3 px-3 sm:px-4 border-b border-slate-200 dark:border-slate-800 bg-[#FEFCF8] dark:bg-[#0B0F17]">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
+          {/* Mobile menu button */}
+          <button onClick={() => setIsMobileNavOpen(!isMobileNavOpen)} className="lg:hidden p-2 -ml-2 rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0">
+            {isMobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+
+          {/* Logo - Left */}
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <img src="/assets/logo.jpg" alt="चित्रकूट ज्योति लोगो" className="h-10 sm:h-14 md:h-16 w-auto object-contain rounded shadow-sm border border-slate-200" />
+            <div className="hidden sm:block text-left">
+              <h1 className="font-devanagari font-black text-xl sm:text-2xl md:text-3xl leading-none text-[#8B0000] dark:text-red-400 tracking-tight">
+                चित्रकूट ज्योति
+              </h1>
+              <p className="text-[9px] sm:text-[10px] font-bold tracking-[0.2em] text-slate-600 dark:text-slate-400 uppercase">दैनिक • भोपाल • मध्यप्रदेश</p>
+              <p className="text-[8px] text-slate-500 hidden md:block">स्थापना • 2026 • RNI स्वीकृत</p>
+            </div>
+          </Link>
+
+          {/* Center Title for mobile */}
+          <div className="sm:hidden text-center flex-1 min-w-0">
+            <h1 className="font-devanagari font-black text-[18px] leading-none text-[#8B0000]">चित्रकूट ज्योति</h1>
+            <p className="text-[8px] font-bold tracking-widest text-slate-500 uppercase">भोपाल • मप्र</p>
           </div>
 
-          {/* Center Title Logo */}
-          <div className="text-center">
-            <Link to="/" className="inline-block group">
-              <h1 className="font-serif-title font-black text-2xl xs:text-3xl sm:text-4xl md:text-5xl tracking-tight text-[#111827] dark:text-white group-hover:text-red-900 dark:group-hover:text-red-400 transition-colors uppercase">
-                THE INDIAN RECORD
-              </h1>
-            </Link>
-            <div className="flex flex-wrap items-center justify-center gap-1 sm:space-x-2 text-[8px] xs:text-[9px] sm:text-[10px] uppercase font-sans-ui font-semibold text-red-900 dark:text-red-400 tracking-wider sm:tracking-widest mt-0.5">
-              <span>EST. 1948</span>
-              <span>•</span>
-              <span>NEW DELHI</span>
-              <span>•</span>
-              <span>MUMBAI</span>
-              <span>•</span>
-              <span>BENGALURU</span>
+          {/* Center Tagline - Desktop */}
+          <div className="hidden lg:block text-center flex-1 px-4">
+            <p className="font-devanagari text-[11px] text-slate-600 dark:text-slate-400 italic leading-tight">
+              “वैचारिक, सकारात्मक, देश-दुनिया, क्राइम, धर्म, ज्योतिष, वास्तु, कैरियर, लाइफस्टाइल सहित विविध खबरें”
+            </p>
+            <div className="flex items-center justify-center gap-2 mt-1 text-[10px] font-bold text-[#8B0000] dark:text-red-400 uppercase tracking-widest">
+              <span>EST. 2026</span><span>•</span><span>भोपाल</span><span>•</span><span>चित्रकूट</span><span>•</span><span>मध्यप्रदेश</span>
             </div>
           </div>
 
-          {/* Right Utilities */}
-          <div className="flex items-center space-x-2 w-full max-w-xs md:w-1/4 justify-center md:justify-end mt-1 md:mt-0">
+          {/* Founder + Search */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <div className="hidden md:flex items-center gap-2 bg-amber-50 dark:bg-slate-900 border border-amber-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5">
+              <img src="/assets/founder.jpg" alt="स्नेहलता सोनी - संपादक" className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-[#8B0000] shrink-0" />
+              <div className="text-left leading-tight">
+                <p className="text-xs font-bold font-devanagari text-slate-900 dark:text-slate-100">स्नेहलता सोनी</p>
+                <p className="text-[10px] text-[#8B0000] font-bold">संपादक • भोपाल (मप्र)</p>
+                <p className="text-[9px] text-slate-500">8827294576</p>
+              </div>
+            </div>
+
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-red-800 px-3 py-1.5 rounded-full text-xs text-slate-600 dark:text-slate-300 transition-all w-full"
+              className="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-[#8B0000] hover:text-white transition-colors"
+              title="खोजें"
             >
-              <Search className="w-3.5 h-3.5 text-red-800 dark:text-red-400 shrink-0" />
-              <span className="font-medium truncate text-left">Search news & topics...</span>
+              <Search className="w-4 h-4" />
             </button>
-
-            <Link
-              to="/profile"
-              className="p-1.5 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-red-900 hover:text-white transition-colors shrink-0"
-              title="User Account"
-            >
-              <User className="w-4 h-4" />
-            </Link>
           </div>
+        </div>
+
+        {/* Mobile founder strip */}
+        <div className="md:hidden mt-2 flex items-center justify-center gap-2 bg-amber-50 dark:bg-slate-900 border border-amber-200 dark:border-slate-800 rounded-lg px-3 py-2">
+          <img src="/assets/founder.jpg" alt="स्नेहलता सोनी" className="w-8 h-8 rounded-full object-cover border-2 border-[#8B0000]" />
+          <div className="text-left">
+            <p className="text-xs font-bold font-devanagari">स्नेहलता सोनी (संपादक)</p>
+            <p className="text-[10px] text-slate-600">भोपाल (मप्र) • 8827294576 / 8982635688</p>
+          </div>
+          <a href="mailto:chitrakootjyotinews@gmail.com" className="ml-auto text-[9px] bg-[#8B0000] text-white px-2 py-1 rounded font-bold">मेल करें</a>
         </div>
       </div>
 
-      {/* 3. PRIMARY NAVIGATION BAR */}
-      <nav className="bg-[#FAF9F6] dark:bg-[#0B0F17] border-b border-slate-300 dark:border-slate-800 sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
-          
-          {/* Mega Menu Toggle Button */}
+      {/* 3. PRIMARY NAV - Hindi Categories */}
+      <nav className="bg-[#8B0000] dark:bg-[#7a0000] text-white sticky top-0 z-40 shadow-md">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 flex items-center">
           <button
             onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-            className="flex items-center space-x-1.5 py-2.5 px-3 bg-red-900 text-white font-sans-ui text-xs font-bold uppercase tracking-wider hover:bg-red-950 transition-colors shrink-0 mr-2 rounded"
-            title="Open All News Sections Menu"
+            className="hidden lg:flex items-center gap-1.5 py-2.5 px-3 bg-[#5a0000] hover:bg-black font-bold text-xs uppercase tracking-wider shrink-0 mr-2 rounded"
           >
-            <Menu className="w-4 h-4" />
-            <span className="inline font-extrabold">SECTIONS</span>
+            <Menu className="w-4 h-4" /> वर्ग
           </button>
 
-          {/* Scrollable Categories List */}
-          <div className="flex items-center space-x-1 sm:space-x-2 overflow-x-auto no-scrollbar py-2 font-sans-ui text-xs uppercase tracking-wider font-bold">
-            {mainCategories.map((cat) => {
+          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-1 flex-1 font-devanagari font-bold text-[13px] sm:text-sm">
+            {mainCategories.map(cat => {
               const isActive = location.pathname === cat.path;
               return (
                 <Link
                   key={cat.name}
                   to={cat.path}
-                  className={`px-2.5 py-1 rounded transition-colors whitespace-nowrap ${
-                    isActive
-                      ? 'bg-red-800 text-white'
-                      : 'text-slate-800 dark:text-slate-200 hover:text-red-800 dark:hover:text-red-400 hover:bg-slate-200/50 dark:hover:bg-slate-800'
-                  }`}
+                  className={`px-2.5 sm:px-3 py-1.5 rounded-full whitespace-nowrap transition-colors ${isActive ? 'bg-white text-[#8B0000]' : 'hover:bg-white/20 text-white'}`}
                 >
                   {cat.name}
                 </Link>
               );
             })}
+
+            {/* Bhavishya Dropdown - Desktop */}
+            <div className="relative hidden lg:block" onMouseEnter={() => setIsBhavishyaOpen(true)} onMouseLeave={() => setIsBhavishyaOpen(false)}>
+              <button className={`px-3 py-1.5 rounded-full flex items-center gap-1 whitespace-nowrap ${isBhavishyaOpen ? 'bg-white text-[#8B0000]' : 'hover:bg-white/20'}`}>
+                भविष्य जिज्ञासा <ChevronDown className={`w-3 h-3 transition-transform ${isBhavishyaOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isBhavishyaOpen && (
+                <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50">
+                  <div className="bg-[#8B0000] text-white text-xs font-bold px-3 py-1.5 flex items-center gap-1">
+                    <Sparkles className="w-3 h-3 text-amber-300" /> भविष्य जिज्ञासा
+                  </div>
+                  {bhavishyaItems.map(item => (
+                    <Link key={item.path} to={item.path} className="block px-3 py-2 text-sm hover:bg-amber-50 dark:hover:bg-slate-800 border-b border-slate-100 dark:border-slate-800 last:border-0">
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Live Indicator Shortcut */}
-          <Link
-            to="/live"
-            className="hidden xl:flex items-center space-x-1 text-xs font-bold text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-2.5 py-1 rounded border border-red-200 dark:border-red-900 shrink-0 ml-2"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
-            </span>
-            <span>LIVE DESK</span>
+          <Link to="/bhavishya/rashifal" className="hidden xl:flex items-center gap-1 bg-amber-400 text-[#8B0000] font-black text-xs px-3 py-1.5 rounded-full shrink-0 ml-2 hover:bg-amber-300">
+            <Sparkles className="w-3 h-3" /> राशिफल
           </Link>
         </div>
+
+        {/* Mobile nav drawer */}
+        {isMobileNavOpen && (
+          <div className="lg:hidden bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border-t border-[#5a0000] p-3 space-y-3 max-h-[70vh] overflow-y-auto">
+            <div className="grid grid-cols-2 gap-2">
+              {mainCategories.map(cat => (
+                <Link key={cat.name} to={cat.path} onClick={() => setIsMobileNavOpen(false)} className={`p-3 rounded-lg text-center font-bold font-devanagari border ${location.pathname === cat.path ? 'bg-[#8B0000] text-white' : 'bg-slate-50 dark:bg-slate-800 border-slate-200'}`}>{cat.name}</Link>
+              ))}
+            </div>
+            <div className="bg-amber-50 dark:bg-slate-800 rounded-lg p-3 border border-amber-200">
+              <p className="font-black text-xs text-[#8B0000] mb-2 flex items-center gap-1"><Sparkles className="w-3 h-3" /> भविष्य जिज्ञासा</p>
+              <div className="grid grid-cols-2 gap-2">
+                {bhavishyaItems.map(it => (
+                  <Link key={it.path} to={it.path} onClick={() => setIsMobileNavOpen(false)} className="bg-white dark:bg-slate-700 border rounded-lg p-2 text-center text-xs font-bold">{it.name}</Link>
+                ))}
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Link to="/epaper" onClick={() => setIsMobileNavOpen(false)} className="flex-1 bg-[#8B0000] text-white p-3 rounded-lg text-center font-bold text-sm">📰 ई-पेपर</Link>
+              <Link to="/contact" onClick={() => setIsMobileNavOpen(false)} className="flex-1 bg-slate-900 text-white p-3 rounded-lg text-center font-bold text-sm">संपर्क</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
-      {/* Mega Menu Overlay */}
       <MegaMenu isOpen={isMegaMenuOpen} onClose={() => setIsMegaMenuOpen(false)} />
     </header>
   );
