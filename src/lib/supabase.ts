@@ -3,11 +3,11 @@ import { createClient } from '@supabase/supabase-js';
 // Vite exposes only VITE_ prefixed vars to browser
 const url = (import.meta as any).env.VITE_SUPABASE_URL as string | undefined
   || (import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined
-  || 'https://pbjxhvuvkiksmueaerfe.supabase.co';
+  || '';
 
 const anonKey = ((import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined)
   || ((import.meta as any).env.VITE_SUPABASE_ANON_KEY as string | undefined)
-  || 'sb_publishable_37_mo8wkdiOZX8tVM9eiJw_NYhCycVD';
+  || '';
 
 if (!url || !anonKey) {
   console.warn('[supabase] Missing VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY');

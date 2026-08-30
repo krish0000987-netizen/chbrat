@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { mockArticles, mockLiveUpdates } from '../data/mockNewsData';
 import { Article, CategoryType, LanguageCode, LiveUpdate, UserProfile } from '../types';
+import { supabase } from '../lib/supabase';
 
 interface NewsContextType {
   theme: 'light' | 'dark';
@@ -63,6 +64,7 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
     return mockArticles;
   });
+  const [dbLoaded, setDbLoaded] = useState(false);
 
   const [savedArticleIds, setSavedArticleIds] = useState<string[]>(() => {
     const saved = localStorage.getItem('ir_saved');
@@ -95,6 +97,52 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     localStorage.setItem('ir_articles', JSON.stringify(articles));
   }, [articles]);
+
+  // Fetch published articles from Supabase (with fallback to mock)
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const { data, error } = await supabase
+          .from('articles')
+          .select('*, categories(id,name,name_hi,slug), authors(id,name,slug,avatar_url)')
+          .eq('status', 'published')
+          .order('published_at', { ascending: false })
+          .limit(50);
+        if (!cancelled && !error && data && data.length > 0) {
+          // Map DB shape -> Article shape
+          const mapped: Article[] = (data as any[]).map((r) => ({
+            id: r.id,
+            slug: r.slug,
+            title: r.title,
+            hindiTitle: r.title_hi || r.title,
+            subheadline: r.subheadline || r.excerpt || '',
+            content: typeof r.content === 'string' ? [r.content] : r.content || [],
+            category: ((r.categories?.name as CategoryType) || 'India') as CategoryType,
+            subcategory: r.subcategory,
+            state: r.state_id || undefined,
+            city: r.city_id || undefined,
+            author: r.authors ? { id: r.authors.id, name: r.authors.name, role: 'Reporter', avatar: r.authors.avatar_url || 'https://placehold.co/100x100', bio: '' } : mockArticles[0].author,
+            publishedAt: r.published_at || r.created_at,
+            readTimeMinutes: 4,
+            heroImage: r.hero_image_url || 'https://placehold.co/800x450',
+            imageCaption: r.hero_image_caption || '',
+            isBreaking: r.is_breaking,
+            isLeadHero: r.is_lead,
+            isTrending: r.is_trending,
+            isExclusive: r.is_exclusive,
+            tags: [],
+            viewsCount: r.views_count || 0,
+            commentsCount: 0,
+            sharesCount: 0,
+          }));
+          setArticles(mapped);
+          setDbLoaded(true);
+        }
+      } catch {}
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
