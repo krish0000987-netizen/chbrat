@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useNews } from '../../context/NewsContext';
 import { MegaMenu } from './MegaMenu';
-import { Search, Sun, Moon, Bookmark, Menu, User, MapPin, ChevronDown, Newspaper, Sparkles, X, Globe } from 'lucide-react';
+import { Search, Sun, Moon, Menu, MapPin, ChevronDown, Newspaper, Sparkles, X } from 'lucide-react';
 import { getT } from '../../lib/i18n';
 
 const citiesHi = ['भोपाल', 'इंदौर', 'जबलपुर', 'ग्वालियर', 'रीवा', 'सतना', 'चित्रकूट'];
 const citiesEn = ['Bhopal', 'Indore', 'Jabalpur', 'Gwalior', 'Rewa', 'Satna', 'Chitrakoot'];
 
 export const GlobalHeader: React.FC = () => {
-  const { theme, toggleTheme, savedArticleIds, setIsSearchOpen, language, setLanguage } = useNews();
+  const { theme, toggleTheme, setIsSearchOpen, language, setLanguage } = useNews();
   const t = getT(language === 'en' ? 'en' : 'hi');
   const cities = language === 'en' ? citiesEn : citiesHi;
   const [selectedCity, setSelectedCity] = useState(cities[0]);
@@ -82,13 +82,6 @@ export const GlobalHeader: React.FC = () => {
             <button onClick={toggleTheme} className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 transition-colors" title={theme === 'light' ? 'Dark' : 'Light'}>
               {theme === 'light' ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5 text-amber-300" />}
             </button>
-            <Link to="/profile" className="relative p-1 hover:text-amber-200">
-              <Bookmark className="w-4 h-4" />
-              {savedArticleIds.length > 0 && <span className="absolute -top-1 -right-1 bg-amber-400 text-black font-bold text-[8px] w-3.5 h-3.5 rounded-full flex items-center justify-center">{savedArticleIds.length}</span>}
-            </Link>
-            <Link to="/login" className="bg-white text-[#8B0000] font-bold px-3 py-1 rounded-full text-[11px] hover:bg-amber-50 hidden sm:inline-flex items-center gap-1">
-              <User className="w-3 h-3" /> {t.header.login}
-            </Link>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Zap, Newspaper, Sparkles, User } from 'lucide-react';
+import { Home, Zap, Newspaper, Sparkles, Search } from 'lucide-react';
 import { useNews } from '../../context/NewsContext';
 
 export const MobileBottomNav: React.FC = () => {
@@ -12,13 +12,13 @@ export const MobileBottomNav: React.FC = () => {
     { label: 'Live', path: '/live', icon: Zap },
     { label: 'E-Paper', path: '/epaper', icon: Newspaper },
     { label: 'Horoscope', path: '/bhavishya/rashifal', icon: Sparkles },
-    { label: 'Account', path: '/profile', icon: User }
+    { label: 'Search', path: '/search', icon: Search }
   ] : [
     { label: 'होम', path: '/', icon: Home },
     { label: 'ताजा', path: '/live', icon: Zap },
     { label: 'ई-पेपर', path: '/epaper', icon: Newspaper },
     { label: 'राशिफल', path: '/bhavishya/rashifal', icon: Sparkles },
-    { label: 'खाता', path: '/profile', icon: User }
+    { label: 'खोज', path: '/search', icon: Search }
   ];
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#0B0F17] border-t border-slate-300 py-1 px-1 flex items-center justify-around z-40 lg:hidden shadow-lg no-print">
