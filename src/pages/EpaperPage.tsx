@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
-import { Newspaper, ZoomIn, ZoomOut, Calendar, Download, Printer, Share2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Newspaper, ZoomIn, ZoomOut, Calendar, Download, Printer, Share2, Eye } from 'lucide-react';
+import { epapersService } from '../services/epapers';
 
 export const EpaperPage: React.FC = () => {
   const [selectedEdition, setSelectedEdition] = useState('भोपाल');
   const [selectedPage, setSelectedPage] = useState(1);
   const [zoomLevel, setZoomLevel] = useState(100);
+  const [realEpapers, setRealEpapers] = useState<any[]>([]);
+  const [featured, setFeatured] = useState<any>(null);
+  useEffect(()=>{
+    epapersService.list({ status:'published' }).then(setRealEpapers).catch(()=>{});
+    epapersService.getFeatured().then(setFeatured).catch(()=>{});
+  },[]);
 
   const pagesInfo = [
     { num: 1, title: 'मुखपृष्ठ • देश-विदेश', lead: 'मोदी ने चित्रकूट धाम में विकास योजनाओं का लोकार्पण किया — ₹4500 करोड़ की सौगात' },
@@ -21,6 +28,48 @@ export const EpaperPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-2 sm:px-4 py-4">
+      {/* Real E-Papers from Admin (DB) */}
+      {realEpapers.length > 0 && (
+        <div className="mb-6 bg-white dark:bg-slate-900 rounded-2xl border p-4 sm:p-5">
+          <h2 className="font-black text-sm mb-3 flex items-center gap-2"><Newspaper className="w-4 h-4 text-[#8B0000]" /> आज का ई-पेपर — एडमिन द्वारा प्रकाशित ({realEpapers.length})</h2>
+          {featured && (
+            <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-xl flex flex-col sm:flex-row gap-3 items-start">
+              <img src={featured.cover_public_url || 'https://placehold.co/120x160'} alt="" className="w-24 h-32 object-cover rounded border shadow" />
+              <div className="flex-1">
+                <span className="bg-[#8B0000] text-white text-[10px] font-black px-2 py-1 rounded">⭐ FEATURED • {featured.edition_date}</span>
+                <h3 className="font-bold mt-1">{featured.title}</h3>
+                <p className="text-xs text-slate-600">{featured.description || 'आज का मुख्य संस्करण — भोपाल'}</p>
+                <div className="flex gap-2 mt-2">
+                  {featured.pdf_public_url && <a href={featured.pdf_public_url} target="_blank" className="px-4 py-2 bg-[#8B0000] text-white rounded-full text-xs font-black inline-flex items-center gap-1"><Eye className="w-4 h-4" /> Read Now</a>}
+                  {featured.pdf_public_url && <a href={featured.pdf_public_url} download className="px-4 py-2 bg-white border rounded-full text-xs font-bold inline-flex items-center gap-1"><Download className="w-4 h-4" /> Download PDF</a>}
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
+            {realEpapers.map((e:any)=>(
+              <div key={e.id} className="bg-slate-50 rounded-xl border overflow-hidden">
+                <img src={e.cover_public_url || 'https://placehold.co/120x160'} alt="" className="w-full h-32 object-cover" />
+                <div className="p-2">
+                  <p className="font-bold text-xs line-clamp-1">{e.title}</p>
+                  <p className="text-[11px] text-slate-500">{e.edition_date} • {e.edition_type}</p>
+                  <div className="flex gap-1 mt-1">
+                    {e.pdf_public_url && <a href={e.pdf_public_url} target="_blank" className="text-[11px] bg-[#8B0000] text-white px-2 py-1 rounded-full font-bold">Read</a>}
+                    {e.pdf_public_url && <a href={e.pdf_public_url} download className="text-[11px] bg-white border px-2 py-1 rounded-full">PDF</a>}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-[11px] text-slate-500 mt-2">↑ ये एडमिन पैनल `/admin/epaper` से प्रकाशित असली PDFs हैं — डाउनलोड/रीड में वही फाइल खुलेगी।</p>
+          {featured?.pdf_public_url && (
+            <div className="mt-4 border rounded-xl overflow-hidden bg-slate-100">
+              <p className="text-xs font-black p-2 bg-white border-b">📖 Featured PDF Reader — {featured.title}</p>
+              <iframe src={featured.pdf_public_url} title="E-Paper PDF" className="w-full h-[600px] bg-white" />
+            </div>
+          )}
+        </div>
+      )}
       {/* Controls */}
       <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border shadow-sm mb-4 flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-2">
