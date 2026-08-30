@@ -46,7 +46,10 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   const [language, setLanguage] = useState<LanguageCode>(() => {
-    return (localStorage.getItem('ir_lang') as LanguageCode) || 'en';
+    const saved = localStorage.getItem('ir_lang') as LanguageCode | null;
+    // default to Hindi for Chitrakoot Jyoti
+    if (saved === 'en' || saved === 'hi') return saved;
+    return 'hi';
   });
 
   const [articles, setArticles] = useState<Article[]>(() => {
@@ -82,6 +85,7 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     localStorage.setItem('ir_lang', language);
+    document.documentElement.lang = language === 'hi' ? 'hi' : 'en';
   }, [language]);
 
   useEffect(() => {

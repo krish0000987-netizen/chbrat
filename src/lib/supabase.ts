@@ -1,0 +1,30 @@
+import { createClient } from '@supabase/supabase-js';
+
+// Vite exposes only VITE_ prefixed vars to browser
+const url = (import.meta as any).env.VITE_SUPABASE_URL as string | undefined
+  || (import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined
+  || 'https://pbjxhvuvkiksmueaerfe.supabase.co';
+
+const anonKey = ((import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined)
+  || ((import.meta as any).env.VITE_SUPABASE_ANON_KEY as string | undefined)
+  || 'sb_publishable_37_mo8wkdiOZX8tVM9eiJw_NYhCycVD';
+
+if (!url || !anonKey) {
+  console.warn('[supabase] Missing VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY');
+}
+
+export const supabase = createClient(url, anonKey);
+
+// Server-side helper using @supabase/server (Node/Edge)
+// Usage in Edge Functions: import { createServerClient } from '@supabase/server'
+export async function getSupabaseServerClient() {
+  // For Vite dev, fallback to same client with secret if available (server-only)
+  // In real Edge Functions, env is injected automatically - no install needed
+  try {
+    // dynamic import to avoid bundling secret in client
+    const mod = await import('@supabase/server' as any);
+    return mod;
+  } catch {
+    return null;
+  }
+}

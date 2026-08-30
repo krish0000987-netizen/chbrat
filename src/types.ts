@@ -27,7 +27,7 @@ export type CategoryType =
   | 'Podcasts'
   | 'E-Paper';
 
-export type LanguageCode = 'en' | 'hi' | 'gu' | 'mr' | 'ta' | 'bn';
+export type LanguageCode = 'en' | 'hi';
 
 export interface Author {
   id: string;
