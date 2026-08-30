@@ -129,7 +129,7 @@ export const GlobalHeader: React.FC = () => {
             <div className="hidden md:flex items-center gap-2 bg-amber-50 dark:bg-slate-900 border border-amber-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5">
               <img src="/assets/founder.jpg" alt="editor" className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-[#8B0000] shrink-0" />
               <div className="text-left leading-tight">
-                <p className="text-xs font-bold font-devanagari text-slate-900 dark:text-slate-100">{language==='en'?'Snehlata Soni':'स्नेहलता सोनी'}</p>
+                <p className="text-xs font-bold font-devanagari text-slate-900 dark:text-slate-100">{language==='en'?'Rajkumar Soni':'राजकुमार सोनी'}</p>
                 <p className="text-[10px] text-[#8B0000] font-bold">{language==='en'?'Editor':'संपादक'} • {t.common.bhopalMP}</p>
                 <p className="text-[9px] text-slate-500">8827294576</p>
               </div>
@@ -143,7 +143,7 @@ export const GlobalHeader: React.FC = () => {
         <div className="md:hidden mt-2 flex items-center justify-center gap-2 bg-amber-50 dark:bg-slate-900 border border-amber-200 dark:border-slate-800 rounded-lg px-3 py-2">
           <img src="/assets/founder.jpg" alt="editor" className="w-8 h-8 rounded-full object-cover border-2 border-[#8B0000]" />
           <div className="text-left">
-            <p className="text-xs font-bold font-devanagari">{language==='en'?'Snehlata Soni (Editor)':'स्नेहलता सोनी (संपादक)'}</p>
+            <p className="text-xs font-bold font-devanagari">{language==='en'?'Rajkumar Soni (Editor)':'राजकुमार सोनी (संपादक)'}</p>
             <p className="text-[10px] text-slate-600">{t.common.bhopalMP} • 8827294576 / 8982635688</p>
           </div>
           <a href="mailto:chitrakootjyotinews@gmail.com" className="ml-auto text-[9px] bg-[#8B0000] text-white px-2 py-1 rounded font-bold">{language==='en'?'Email':'मेल करें'}</a>

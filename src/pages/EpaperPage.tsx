@@ -76,7 +76,7 @@ export const EpaperPage: React.FC = () => {
               <img src="/assets/founder.jpg" alt="संपादक" className="h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover border-2 border-[#8B0000] hidden sm:block" />
             </div>
             <div className="flex justify-between items-center text-[9px] font-bold border-t border-black mt-2 pt-1">
-              <span>संस्थापक संपादक: स्नेहलता सोनी • भोपाल (मप्र)</span>
+              <span>संस्थापक संपादक: राजकुमार सोनी • भोपाल (मप्र)</span>
               <span className="hidden sm:inline">संपर्क: 8827294576, 8982635688 • chitrakootjyotinews@gmail.com</span>
               <span>शनिवार, 30 अगस्त 2026 • भाद्रपद शुक्ल सप्तमी</span>
             </div>
@@ -96,7 +96,7 @@ export const EpaperPage: React.FC = () => {
               <h2 className="text-[26px] font-black leading-tight mt-2 mb-2">{pagesInfo[selectedPage-1].lead}</h2>
               <p className="text-[11px] font-bold text-slate-600 border-b border-dashed pb-2">भोपाल/चित्रकूट • विशेष संवाददाता • ई-पेपर डेस्क</p>
               <p className="text-[12px] leading-relaxed mt-3 text-justify">
-                {selectedPage===1 && 'प्रधानमंत्री ने चित्रकूट धाम में आयोजित भव्य समारोह में ₹4500 करोड़ की विकास परियोजनाओं का लोकार्पण किया। इस अवसर पर उन्होंने कहा कि चित्रकूट की आध्यात्मिक विरासत को आधुनिक सुविधाओं से जोड़ा जाएगा। कामदगिरि परिक्रमा पथ, रामघाट सौंदर्यीकरण और भोपाल-चित्रकूट फोरलेन प्रमुख योजनाएं हैं। मुख्यमंत्री ने संपादक स्नेहलता सोनी द्वारा उठाए गए स्थानीय मुद्दों पर शीघ्र कार्रवाई का आश्वासन दिया।'}
+                {selectedPage===1 && 'प्रधानमंत्री ने चित्रकूट धाम में आयोजित भव्य समारोह में ₹4500 करोड़ की विकास परियोजनाओं का लोकार्पण किया। इस अवसर पर उन्होंने कहा कि चित्रकूट की आध्यात्मिक विरासत को आधुनिक सुविधाओं से जोड़ा जाएगा। कामदगिरि परिक्रमा पथ, रामघाट सौंदर्यीकरण और भोपाल-चित्रकूट फोरलेन प्रमुख योजनाएं हैं। मुख्यमंत्री ने संपादक राजकुमार सोनी द्वारा उठाए गए स्थानीय मुद्दों पर शीघ्र कार्रवाई का आश्वासन दिया।'}
                 {selectedPage===2 && 'भोपाल मेट्रो के ट्रायल रन में 95% सफलता, मेट्रो रेल सुरक्षा आयुक्त ने हरी झंडी दी। एमपी नगर से एम्स तक 8 मिनट में सफर। भोपालवासियों में उत्साह, दिसंबर से आम जनता के लिए खुलेगा।'}
                 {selectedPage===3 && 'कामदगिरि की 5 किमी परिक्रमा में आज 50 हजार से अधिक श्रद्धालु पहुंचे। चित्रकूट ज्योति धर्म डेस्क के अनुसार आज शनिवार को शनि पूजन का विशेष महत्व, भक्तों ने सरसों तेल चढ़ाया।'}
                 {selectedPage===4 && 'संपादकीय: सकारात्मक पत्रकारिता ही समाज को दिशा देती है। चित्रकूट ज्योति का ध्येय — वैचारिक, निष्पक्ष और जनहितकारी खबर। विचार पृष्ठ पर विशेष लेख: “मध्यप्रदेश में जल संरक्षण”।'}
@@ -113,7 +113,7 @@ export const EpaperPage: React.FC = () => {
                 शेष पृष्ठ {selectedPage < totalPages ? selectedPage+1 : 1} पर... स्थानीय संवाददाताओं की विस्तृत रिपोर्ट पढ़ें। चित्रकूट ज्योति ई-पेपर में हर खबर असली अखबार के लेआउट में — ज़ूम, शेयर और प्रिंट सुविधा उपलब्ध।
               </p>
               <div className="mt-auto pt-3 border-t border-dashed text-[10px] bg-amber-50 p-2">
-                <span className="font-black text-[#8B0000]">📞 संपर्क:</span> संपादक स्नेहलता सोनी — 8827294576, 8982635688 | ✉️ chitrakootjyotinews@gmail.com | 📍 भोपाल (मप्र)
+                <span className="font-black text-[#8B0000]">📞 संपर्क:</span> संपादक राजकुमार सोनी — 8827294576, 8982635688 | ✉️ chitrakootjyotinews@gmail.com | 📍 भोपाल (मप्र)
               </div>
             </div>
 
@@ -159,7 +159,7 @@ export const EpaperPage: React.FC = () => {
           </div>
 
           <div className="border-t-[3px] border-black pt-1 flex justify-between text-[8px] font-bold">
-            <span>मुद्रक एवं प्रकाशक: स्नेहलता सोनी द्वारा चित्रकूट ज्योति मीडिया, भोपाल (मप्र) से प्रकाशित</span>
+            <span>मुद्रक एवं प्रकाशक: राजकुमार सोनी द्वारा चित्रकूट ज्योति मीडिया, भोपाल (मप्र) से प्रकाशित</span>
             <span>पृष्ठ {selectedPage} / {totalPages}</span>
           </div>
         </div>

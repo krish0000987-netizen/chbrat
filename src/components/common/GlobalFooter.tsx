@@ -38,7 +38,7 @@ export const GlobalFooter: React.FC = () => {
             <div className="flex gap-3">
               <img src="/assets/founder.jpg" alt="editor" className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border-2 border-[#8B0000] shadow" />
               <div className="flex-1 min-w-0">
-                <h3 className={`font-black text-base leading-none ${isEn?'':'font-devanagari'}`}>{isEn?'Snehlata Soni':'स्नेहलता सोनी'}</h3>
+                <h3 className={`font-black text-base leading-none ${isEn?'':'font-devanagari'}`}>{isEn?'Rajkumar Soni':'राजकुमार सोनी'}</h3>
                 <p className="text-xs font-bold text-[#8B0000] bg-amber-100 inline-block px-2 py-0.5 rounded-full mt-1">{isEn?'Editor':'संपादक'}</p>
                 <p className="text-xs text-slate-600 flex items-center gap-1 mt-1"><MapPin className="w-3 h-3" /> {t.common.bhopalMP}</p>
               </div>
