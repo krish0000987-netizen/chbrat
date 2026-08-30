@@ -1,16 +1,16 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Vite exposes only VITE_ prefixed vars to browser
-const url = (import.meta as any).env.VITE_SUPABASE_URL as string | undefined
-  || (import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined
-  || '';
+const _url = (import.meta as any).env.VITE_SUPABASE_URL as string | undefined
+  || (import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
+const _anonKey = ((import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined)
+  || ((import.meta as any).env.VITE_SUPABASE_ANON_KEY as string | undefined);
 
-const anonKey = ((import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined)
-  || ((import.meta as any).env.VITE_SUPABASE_ANON_KEY as string | undefined)
-  || '';
+const url = _url || 'https://placeholder.supabase.co';
+const anonKey = _anonKey || 'placeholder-anon-key';
 
-if (!url || !anonKey) {
-  console.warn('[supabase] Missing VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY');
+if (!_url || !_anonKey) {
+  console.warn('[supabase] Missing VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY — using placeholder, site will use mock data until env is set on Vercel');
 }
 
 export const supabase = createClient(url, anonKey);
