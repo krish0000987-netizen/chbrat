@@ -98,9 +98,30 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('ir_articles', JSON.stringify(articles));
   }, [articles]);
 
-  // Fetch published articles from Supabase (with fallback to mock)
+  // Fetch published articles from Supabase (with localStorage fallback for admin integration)
   useEffect(() => {
     let cancelled = false;
+    const loadLocalFallback = () => {
+      try {
+        const raw = localStorage.getItem('cj_articles_db');
+        if (raw) {
+          const db = JSON.parse(raw);
+          if (db.length > 0) {
+            const mapped: Article[] = db.filter((r:any)=>r.status==='published').map((r:any) => ({
+              id: r.id, slug: r.slug, title: r.title, hindiTitle: r.title_hi || r.title,
+              subheadline: r.subheadline || r.excerpt || '', content: typeof r.content === 'string' ? [r.content] : r.content || [],
+              category: ((r.categories?.name as CategoryType) || 'India') as CategoryType,
+              subcategory: r.subcategory, state: r.state_id || undefined, city: r.city_id || undefined,
+              author: r.authors ? { id: r.authors.id, name: r.authors.name, role: 'Reporter', avatar: r.authors.avatar_url || 'https://placehold.co/100x100', bio: '' } : mockArticles[0].author,
+              publishedAt: r.published_at || r.created_at, readTimeMinutes: 4, heroImage: r.hero_image_url || 'https://placehold.co/800x450', imageCaption: r.hero_image_caption || '',
+              isBreaking: r.is_breaking, isLeadHero: r.is_lead, isTrending: r.is_trending, isExclusive: r.is_exclusive, tags: [], viewsCount: r.views_count || 0, commentsCount: 0, sharesCount: 0,
+            }));
+            if (mapped.length > 0 && !cancelled) { setArticles(mapped); setDbLoaded(true); return true; }
+          }
+        }
+      } catch {}
+      return false;
+    };
     (async () => {
       try {
         const { data, error } = await supabase
@@ -110,38 +131,27 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .order('published_at', { ascending: false })
           .limit(50);
         if (!cancelled && !error && data && data.length > 0) {
-          // Map DB shape -> Article shape
           const mapped: Article[] = (data as any[]).map((r) => ({
-            id: r.id,
-            slug: r.slug,
-            title: r.title,
-            hindiTitle: r.title_hi || r.title,
-            subheadline: r.subheadline || r.excerpt || '',
-            content: typeof r.content === 'string' ? [r.content] : r.content || [],
+            id: r.id, slug: r.slug, title: r.title, hindiTitle: r.title_hi || r.title,
+            subheadline: r.subheadline || r.excerpt || '', content: typeof r.content === 'string' ? [r.content] : r.content || [],
             category: ((r.categories?.name as CategoryType) || 'India') as CategoryType,
-            subcategory: r.subcategory,
-            state: r.state_id || undefined,
-            city: r.city_id || undefined,
+            subcategory: r.subcategory, state: r.state_id || undefined, city: r.city_id || undefined,
             author: r.authors ? { id: r.authors.id, name: r.authors.name, role: 'Reporter', avatar: r.authors.avatar_url || 'https://placehold.co/100x100', bio: '' } : mockArticles[0].author,
-            publishedAt: r.published_at || r.created_at,
-            readTimeMinutes: 4,
-            heroImage: r.hero_image_url || 'https://placehold.co/800x450',
-            imageCaption: r.hero_image_caption || '',
-            isBreaking: r.is_breaking,
-            isLeadHero: r.is_lead,
-            isTrending: r.is_trending,
-            isExclusive: r.is_exclusive,
-            tags: [],
-            viewsCount: r.views_count || 0,
-            commentsCount: 0,
-            sharesCount: 0,
+            publishedAt: r.published_at || r.created_at, readTimeMinutes: 4, heroImage: r.hero_image_url || 'https://placehold.co/800x450', imageCaption: r.hero_image_caption || '',
+            isBreaking: r.is_breaking, isLeadHero: r.is_lead, isTrending: r.is_trending, isExclusive: r.is_exclusive, tags: [], viewsCount: r.views_count || 0, commentsCount: 0, sharesCount: 0,
           }));
           setArticles(mapped);
           setDbLoaded(true);
+        } else {
+          loadLocalFallback();
         }
-      } catch {}
+      } catch { loadLocalFallback(); }
     })();
-    return () => { cancelled = true; };
+    // poll localStorage for admin live updates (same browser)
+    const iv = setInterval(()=>{ if(!cancelled) loadLocalFallback(); }, 1500);
+    const onStorage = (e: StorageEvent)=>{ if(e.key==='cj_articles_db' || e.key==='ir_articles') loadLocalFallback(); };
+    window.addEventListener('storage', onStorage);
+    return () => { cancelled = true; clearInterval(iv); window.removeEventListener('storage', onStorage); };
   }, []);
 
   const toggleTheme = () => {
