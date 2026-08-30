@@ -6,11 +6,11 @@ const _url = (import.meta as any).env.VITE_SUPABASE_URL as string | undefined
 const _anonKey = ((import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined)
   || ((import.meta as any).env.VITE_SUPABASE_ANON_KEY as string | undefined);
 
-const url = _url || 'https://placeholder.supabase.co';
-const anonKey = _anonKey || 'placeholder-anon-key';
+const url = _url || 'https://pbjxhvuvkiksmueaerfe.supabase.co';
+const anonKey = _anonKey || 'sb_publishable_37_mo8wkdiOZX8tVM9eiJw_NYhCycVD';
 
 if (!_url || !_anonKey) {
-  console.warn('[supabase] Missing VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY — using placeholder, site will use mock data until env is set on Vercel');
+  console.warn('[supabase] Missing VITE env — using built-in publishable key fallback');
 }
 
 export const supabase = createClient(url, anonKey);
