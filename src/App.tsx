@@ -37,7 +37,17 @@ import { CategoriesManager } from './pages/admin/CategoriesManager';
 import { EpaperManager } from './pages/admin/EpaperManager';
 import { AuthorsManager } from './pages/admin/AuthorsManager';
 import { BreakingManager } from './pages/admin/BreakingManager';
-import { AdminStub } from './pages/admin/Stub';
+import { LocationsManager } from './pages/admin/LocationsManager';
+import { HomepageBuilder } from './pages/admin/HomepageBuilder';
+import { NavigationManager } from './pages/admin/NavigationManager';
+import { AdvertisementsManager } from './pages/admin/AdvertisementsManager';
+import { SeoManager } from './pages/admin/SeoManager';
+import { CommentsManager } from './pages/admin/CommentsManager';
+import { SubscribersManager } from './pages/admin/SubscribersManager';
+import { AnalyticsDashboard } from './pages/admin/AnalyticsDashboard';
+import { ActivityLog } from './pages/admin/ActivityLog';
+import { UsersManager } from './pages/admin/UsersManager';
+import { SiteSettingsManager } from './pages/admin/SiteSettingsManager';
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -72,21 +82,21 @@ export default function App() {
               <Route path="articles/new" element={<ArticleEditor />} />
               <Route path="articles/:id/edit" element={<ArticleEditor />} />
               <Route path="categories" element={<CategoriesManager />} />
-              <Route path="locations" element={<AdminStub title="Locations" desc="State → District → City → Locality hierarchy. DB table locations ready. CRUD UI next." />} />
+              <Route path="locations" element={<LocationsManager />} />
               <Route path="authors" element={<AuthorsManager />} />
               <Route path="media" element={<MediaLibrary />} />
               <Route path="breaking-news" element={<BreakingManager />} />
               <Route path="epaper" element={<EpaperManager />} />
-              <Route path="homepage" element={<AdminStub title="Homepage Builder" desc="Drag-and-drop ordering for hero, top stories, category blocks, e-paper. Stores in homepage_sections table." />} />
-              <Route path="navigation" element={<AdminStub title="Navigation Manager" desc="Edit main/mega/mobile/footer menus. Table: navigation_items with drag reorder." />} />
-              <Route path="advertisements" element={<AdminStub title="Advertisements" desc="Manage ad slots (header, sidebar, article, footer). Table: advertisements + AdvertisementSlot wired to DB." />} />
-              <Route path="seo" element={<AdminStub title="SEO & Pages" desc="Global SEO, sitemap, robots, structured data. Per-article SEO already in article editor." />} />
-              <Route path="comments" element={<AdminStub title="Comments Moderation" desc="Pending/Approved/Rejected/Spam workflow. Table: comments with RLS." />} />
-              <Route path="subscribers" element={<AdminStub title="Subscribers" desc="Newsletter subscribers export + unsubscribe. Table: subscribers." />} />
-              <Route path="analytics" element={<AdminStub title="Analytics" desc="Page views, article views, e-paper views, search trends. Table: analytics_events." />} />
-              <Route path="activity" element={<AdminStub title="Activity Log" desc="Audit trail for logins, publishes, uploads. Table: audit_logs." />} />
-              <Route path="users" element={<AdminStub title="Users & Roles" desc="Super_admin, admin, editor, reporter, viewer with RLS. Table: profiles.role" />} />
-              <Route path="settings" element={<AdminStub title="Site Settings" desc="General, branding, social, SEO, footer, contact. Table: site_settings key-value JSON." />} />
+              <Route path="homepage" element={<HomepageBuilder />} />
+              <Route path="navigation" element={<NavigationManager />} />
+              <Route path="advertisements" element={<AdvertisementsManager />} />
+              <Route path="seo" element={<SeoManager />} />
+              <Route path="comments" element={<CommentsManager />} />
+              <Route path="subscribers" element={<SubscribersManager />} />
+              <Route path="analytics" element={<AnalyticsDashboard />} />
+              <Route path="activity" element={<ActivityLog />} />
+              <Route path="users" element={<UsersManager />} />
+              <Route path="settings" element={<SiteSettingsManager />} />
             </Route>
 
             {/* Public Website */}
