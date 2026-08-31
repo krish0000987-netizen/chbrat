@@ -62,9 +62,9 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ defaultCategory }) =
     <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between pb-3 mb-5 border-b-2 border-[#8B0000] gap-3">
         <div>
-          <span className="text-[11px] font-bold text-[#8B0000] bg-amber-100 px-2 py-0.5 rounded">चित्रकूट ज्योति • {formattedCategory} डेस्क</span>
+          <span className="text-[11px] font-bold text-[#8B0000] bg-amber-100 px-2 py-0.5 rounded">चाणक्य भारत • {formattedCategory} डेस्क</span>
           <h1 className="font-devanagari font-black text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 mt-1">{formattedCategory} समाचार</h1>
-          <p className="text-xs text-slate-500 font-devanagari">ताजा अपडेट • भोपाल • मध्यप्रदेश • चित्रकूट</p>
+          <p className="text-xs text-slate-500 font-devanagari">ताजा अपडेट • कुशीनगर • उत्तर प्रदेश • कुशीनगर</p>
         </div>
         <div className="flex items-center gap-2 bg-white dark:bg-slate-900 p-1.5 rounded-full border text-xs shrink-0">
           <span className="text-slate-500 font-bold flex items-center gap-1 pl-2"><SlidersHorizontal className="w-3.5 h-3.5" /> क्रम:</span>

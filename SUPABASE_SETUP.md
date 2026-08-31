@@ -1,61 +1,89 @@
-# Supabase Setup — Chitrakoot Jyoti
+# Supabase Setup — Chanakya Bharat (खोजी समाचार)
 
-## 1) Create Project
-You already have: https://pbjxhvuvkiksmueaerfe.supabase.co
+Project: **https://rvfnauieyvomeftwrbxn.supabase.co**  
+Brand: चाणक्य भारत | Kushinagar (Uttar Pradesh) | 9919529245
 
-## 2) Run Migration
-Dashboard → SQL Editor → New Query → paste `supabase/schema.sql` (21KB, 20 tables + RLS + storage buckets + seeds) → Run.
+## 1. Apply Schema
 
-This creates:
-- profiles, categories, locations, authors, tags, media, articles, article_tags
-- epapers, breaking_news, homepage_sections, advertisements, navigation_items
-- comments, site_settings, subscribers, analytics_events, audit_logs
-- Storage buckets: article-images, author-images, site-assets, epapers, advertisements, gallery
-- Seeds: 8 categories (देश-विदेश etc), 6 locations, homepage sections, site_settings
+Open **Supabase Dashboard → SQL Editor** for project `rvfnauieyvomeftwrbxn`:
 
-## 3) Storage
-Buckets are auto-created via SQL. Verify: Dashboard → Storage → 6 buckets public.
+https://supabase.com/dashboard/project/rvfnauieyvomeftwrbxn/sql
 
-## 4) Auth — First Admin
-Dashboard → Authentication → Users → Add user → email/password → Confirm.
+Copy **entire** `supabase/schema.sql` (449 lines) and Run. It creates:
 
-Then SQL:
+- `profiles`, `categories`, `locations`, `authors`, `tags`, `media`, `articles`, `article_tags`, `epapers`, `breaking_news`, `homepage_sections`, `advertisements`, `navigation_items`, `comments`, `site_settings`, `subscribers`, `analytics_events`, `audit_logs`
+- RLS enabled (public can read published/active content; authenticated can manage via service_role)
+- Storage buckets: `article-images`, `author-images`, `site-assets`, `epapers`, `advertisements`, `gallery` (public)
+- Seeds: 8 categories (देश-विदेश ... टेक), locations (Uttar Pradesh → Kushinagar → Padrauna ...), site_settings (site_name=Chanakya Bharat, tagline=खोजी समाचार, phone=9919529245, location=कुशीनगर...), homepage sections
+- Triggers: `handle_updated_at`, `handle_new_user` (auto profile on signup)
+
+Verify:
+
 ```sql
-update profiles set role='super_admin' where email='your_admin@email.com';
--- or
-insert into profiles (id, email, full_name, role) values ('<auth.users.id>','admin@chitrakootjyoti.com','Rajkumar Soni','super_admin');
+select * from site_settings;
+select * from categories;
+select * from storage.buckets;
 ```
 
-Login at `/admin/login` with that email/password. No demo credentials in code.
+## 2. Auth
 
-## 5) Env
-Copy `.env.example` → `.env.local` and fill your Supabase keys:
-```
-VITE_SUPABASE_URL=...
-VITE_SUPABASE_PUBLISHABLE_KEY=...
-SUPABASE_SECRET_KEY=... (server only, never expose)
-```
+Enable **Email/Password** in Authentication → Providers.
 
-## 6) Test CMS
-- /admin → Dashboard
-- /admin/articles/new → create → Publish → appears on / (homepage fetches published articles via NewsContext)
-- /admin/media → upload image → copy URL into article
-- /admin/epaper → upload PDF + cover → Publish → appears on /epaper (featured)
-- /admin/categories, /admin/authors, /admin/breaking-news → CRUD
+Create first user via Admin UI `/admin/login` → Sign Up, then promote:
 
-## 7) Scheduled Publishing
-Articles with status='scheduled' and scheduled_at <= now() should be auto-published. Run via cron/Edge Function or manual:
 ```sql
-update articles set status='published', published_at=now() where status='scheduled' and scheduled_at <= now();
+update public.profiles set role='super_admin' where email='your-email@example.com';
+-- roles: super_admin, admin, editor, reporter, viewer
 ```
-Create pg_cron job or call from your deployment.
 
-## 8) RLS Notes
-- Public can read published articles, published epapers, active breaking news, enabled homepage sections etc.
-- Writes require authenticated user (via Supabase Auth) or service_role (server).
-- profiles.role enforces RBAC in UI + RLS (add stricter policies per role as needed).
+## 3. Storage
 
-## 9) Production
-- Vercel: set env vars same as .env
-- Build: `npm run build` (tested: 751KB)
-- No secrets in git ( .gitignore covers .env* )
+Buckets are created by schema. Verify in Dashboard → Storage. If missing, create manually as **public**.
+
+Policies: public read, authenticated write (already in schema). For `site-assets` logo upload:
+
+```sql
+-- already included
+create policy "Public read site-assets" on storage.objects for select using (bucket_id='site-assets');
+create policy "Auth write site-assets" on storage.objects for insert with check (bucket_id='site-assets' and auth.role()='authenticated');
+```
+
+## 4. Environment Variables
+
+`.env` / `.env.local` (Vite):
+
+```
+VITE_SUPABASE_URL=https://rvfnauieyvomeftwrbxn.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
+VITE_SUPABASE_ANON_KEY=sb_publishable_xxx
+SUPABASE_URL=https://rvfnauieyvomeftwrbxn.supabase.co
+SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxx
+SUPABASE_SECRET_KEY=sb_secret_xxx
+SUPABASE_JWKS_URL=https://rvfnauieyvomeftwrbxn.supabase.co/auth/v1/.well-known/jwks.json
+```
+
+Never expose `SUPABASE_SECRET_KEY` in browser.
+
+## 5. Test
+
+```bash
+npm install
+npm run dev
+# visit http://localhost:3000 and /admin/login
+```
+
+## 6. Seed Demo (optional, clearly marked)
+
+Insert one published article to test homepage:
+
+```sql
+insert into articles (title, title_hi, slug, content, category_id, status, published_at, is_featured)
+values ('Test Article','टेस्ट खबर','test-article','<p>Demo content for Chanakya Bharat — खोजी समाचार</p>', (select id from categories limit 1), 'published', now(), true);
+```
+
+Remove demo seed before production.
+
+## 7. Current Status
+
+As of 31 Aug 2026, the `rvfnauieyvomeftwrbxn` project **has no tables** (checked via anon query → "Could not find table"). You must run `supabase/schema.sql` once. After that, the site will show live Supabase data; otherwise it falls back to mock + localStorage (branded as Chanakya Bharat).
+

@@ -6,8 +6,8 @@ const _url = (import.meta as any).env.VITE_SUPABASE_URL as string | undefined
 const _anonKey = ((import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined)
   || ((import.meta as any).env.VITE_SUPABASE_ANON_KEY as string | undefined);
 
-const url = _url || 'https://pbjxhvuvkiksmueaerfe.supabase.co';
-const anonKey = _anonKey || 'sb_publishable_37_mo8wkdiOZX8tVM9eiJw_NYhCycVD';
+const url = _url || 'https://rvfnauieyvomeftwrbxn.supabase.co';
+const anonKey = _anonKey || 'sb_publishable__o0ts74iGN8rnOJd0Y_mEA_YFXHlUkT';
 
 if (!_url || !_anonKey) {
   console.warn('[supabase] Missing VITE env — using built-in publishable key fallback');

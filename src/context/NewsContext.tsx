@@ -30,14 +30,14 @@ interface NewsContextType {
 const NewsContext = createContext<NewsContextType | undefined>(undefined);
 
 const initialProfile: UserProfile = {
-  name: 'Rajesh Sharma',
-  email: 'rajesh.s@example.com',
+  name: 'चाणक्य भारत पाठक',
+  email: '',
   avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-  subscriptionPlan: 'Premium',
-  savedArticleIds: ['art-01', 'art-02'],
-  readingHistoryIds: ['art-01', 'art-04', 'art-05'],
-  followedTopics: ['India', 'Politics', 'Business', 'Cricket'],
-  followedAuthors: ['auth-1', 'auth-2']
+  subscriptionPlan: 'Free',
+  savedArticleIds: [],
+  readingHistoryIds: [],
+  followedTopics: ['India', 'State News', 'Sports', 'Entertainment'] as unknown as CategoryType[],
+  followedAuthors: []
 };
 
 export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -48,7 +48,7 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [language, setLanguage] = useState<LanguageCode>(() => {
     const saved = localStorage.getItem('ir_lang') as LanguageCode | null;
-    // default to Hindi for Chitrakoot Jyoti
+    // default to Hindi for Chanakya Bharat
     if (saved === 'en' || saved === 'hi') return saved;
     return 'hi';
   });
@@ -98,31 +98,10 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('ir_articles', JSON.stringify(articles));
   }, [articles]);
 
-  // Fetch published articles from Supabase (with localStorage fallback for admin integration)
+  // Fetch published articles from Supabase — Supabase is source of truth
   useEffect(() => {
     let cancelled = false;
-    const loadLocalFallback = () => {
-      try {
-        const raw = localStorage.getItem('cj_articles_db');
-        if (raw) {
-          const db = JSON.parse(raw);
-          if (db.length > 0) {
-            const mapped: Article[] = db.filter((r:any)=>r.status==='published').map((r:any) => ({
-              id: r.id, slug: r.slug, title: r.title, hindiTitle: r.title_hi || r.title,
-              subheadline: r.subheadline || r.excerpt || '', content: typeof r.content === 'string' ? [r.content] : r.content || [],
-              category: ((r.categories?.name as CategoryType) || 'India') as CategoryType,
-              subcategory: r.subcategory, state: r.state_id || undefined, city: r.city_id || undefined,
-              author: r.authors ? { id: r.authors.id, name: r.authors.name, role: 'Reporter', avatar: r.authors.avatar_url || 'https://placehold.co/100x100', bio: '' } : mockArticles[0].author,
-              publishedAt: r.published_at || r.created_at, readTimeMinutes: 4, heroImage: r.hero_image_url || 'https://placehold.co/800x450', imageCaption: r.hero_image_caption || '',
-              isBreaking: r.is_breaking, isLeadHero: r.is_lead, isTrending: r.is_trending, isExclusive: r.is_exclusive, tags: [], viewsCount: r.views_count || 0, commentsCount: 0, sharesCount: 0,
-            }));
-            if (mapped.length > 0 && !cancelled) { setArticles(mapped); setDbLoaded(true); return true; }
-          }
-        }
-      } catch {}
-      return false;
-    };
-    (async () => {
+    const fetchFromSupabase = async () => {
       try {
         const { data, error } = await supabase
           .from('articles')
@@ -142,16 +121,16 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }));
           setArticles(mapped);
           setDbLoaded(true);
-        } else {
-          loadLocalFallback();
+          return true;
         }
-      } catch { loadLocalFallback(); }
-    })();
-    // poll localStorage for admin live updates (same browser)
-    const iv = setInterval(()=>{ if(!cancelled) loadLocalFallback(); }, 1500);
-    const onStorage = (e: StorageEvent)=>{ if(e.key==='cj_articles_db' || e.key==='ir_articles') loadLocalFallback(); };
-    window.addEventListener('storage', onStorage);
-    return () => { cancelled = true; clearInterval(iv); window.removeEventListener('storage', onStorage); };
+      } catch {}
+      return false;
+    };
+    fetchFromSupabase();
+    // realtime subscription for breaking/live updates (poll as fallback every 30s)
+    const iv = setInterval(() => { if (!cancelled) fetchFromSupabase(); }, 30000);
+    const channel = (supabase as any).channel?.('articles-public')?.on('postgres_changes', { event: '*', schema: 'public', table: 'articles' }, () => fetchFromSupabase())?.subscribe?.();
+    return () => { cancelled = true; clearInterval(iv); try { (supabase as any).removeChannel?.(channel); } catch {} };
   }, []);
 
   const toggleTheme = () => {

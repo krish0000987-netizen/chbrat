@@ -5,7 +5,7 @@ import { Upload, Trash2, Eye, Download, Star } from 'lucide-react';
 export const EpaperManager: React.FC = () => {
   const [list, setList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [title, setTitle] = useState('Chitrakoot Jyoti – Daily Edition');
+  const [title, setTitle] = useState('Chanakya Bharat – Daily Edition');
   const [editionDate, setEditionDate] = useState(new Date().toISOString().slice(0,10));
   const [isFeatured, setIsFeatured] = useState(false);
   const [uploading, setUploading] = useState(false);

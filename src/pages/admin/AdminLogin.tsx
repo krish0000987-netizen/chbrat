@@ -39,25 +39,25 @@ export const AdminLogin: React.FC = () => {
         <div className="absolute inset-0 opacity-10" style={{backgroundImage:"url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80')", backgroundSize:'cover'}} />
         <div className="relative z-10">
           <div className="flex items-center gap-3">
-            <img src="/assets/logo.jpg" alt="logo" className="h-10 w-auto rounded bg-white p-1" />
+            <img src="/assets/logo.jpg" alt="चाणक्य भारत लोगो" className="h-12 w-12 rounded-full object-cover border-2 border-amber-300 bg-white shadow-md" />
             <div>
-              <h1 className="font-black text-xl leading-none">Chitrakoot Jyoti</h1>
-              <p className="text-xs text-amber-200">Newsroom CMS • Bhopal</p>
+              <h1 className="font-black text-xl leading-none">Chanakya Bharat</h1>
+              <p className="text-xs text-amber-200">खोजी समाचार • Kushinagar (UP) • 9919529245</p>
             </div>
           </div>
           <h2 className="font-devanagari font-black text-4xl leading-tight mt-16">सत्य, साहस <br/>और सरोकार</h2>
           <p className="text-amber-100 mt-3 max-w-md text-sm leading-relaxed">Professional newsroom to manage articles, e-paper, breaking news and homepage — without touching code.</p>
         </div>
-        <p className="relative z-10 text-xs text-amber-200">© 2026 Chitrakoot Jyoti • Editorial System</p>
+        <p className="relative z-10 text-xs text-amber-200">© 2026 Chanakya Bharat • Editorial System</p>
       </div>
 
       <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
         <div className="w-full max-w-md">
           <div className="lg:hidden flex items-center gap-3 justify-center mb-6">
-            <img src="/assets/logo.jpg" alt="logo" className="h-12 w-auto rounded border bg-white" />
+            <img src="/assets/logo.jpg" alt="चाणक्य भारत लोगो" className="h-12 w-12 rounded-full object-cover border-2 border-amber-400 bg-white shadow-md" />
             <div className="text-left">
-              <h1 className="font-black text-lg leading-none text-[#8B0000]">Chitrakoot Jyoti</h1>
-              <p className="text-xs text-slate-500">Newsroom CMS</p>
+              <h1 className="font-black text-lg leading-none text-[#8B0000]">Chanakya Bharat</h1>
+              <p className="text-xs text-slate-500">खोजी समाचार • 9919529245</p>
             </div>
           </div>
 
@@ -76,7 +76,7 @@ export const AdminLogin: React.FC = () => {
                 <label className="block text-xs font-bold mb-1">Email / ईमेल *</label>
                 <div className="relative">
                   <Mail className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
-                  <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="editor@chitrakootjyoti.com" className="w-full pl-10 pr-3 py-2.5 rounded-xl border bg-slate-50 dark:bg-slate-800 text-sm outline-none focus:border-[#8B0000] focus:bg-white" required />
+                  <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="editor@chanakyabharat.com" className="w-full pl-10 pr-3 py-2.5 rounded-xl border bg-slate-50 dark:bg-slate-800 text-sm outline-none focus:border-[#8B0000] focus:bg-white" required />
                 </div>
               </div>
               <div>

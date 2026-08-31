@@ -294,7 +294,7 @@ export const mockArticles: Article[] = [
     sharesCount: 3100,
     content: [
       'MUMBAI — The theatrical trailer for the upcoming historical drama "Samrat - The Empire Beyond" has broken digital viewing benchmarks across YouTube and social platforms.',
-      'Featuring grand set pieces shot across Rajasthan and Madhya Pradesh, the film showcases traditional warrior craftsmanship integrated with IMAX 3D cinematography.',
+      'Featuring grand set pieces shot across Rajasthan and Uttar Pradesh, the film showcases traditional warrior craftsmanship integrated with IMAX 3D cinematography.',
       'Trade analysts predict a record-breaking opening weekend box office turnout across both single screens and multiplex chains nationwide.'
     ]
   },

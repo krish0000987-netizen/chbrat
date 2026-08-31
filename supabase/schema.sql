@@ -1,4 +1,4 @@
--- Chitrakoot Jyoti - Production Supabase Schema
+-- Chanakya Bharat - Production Supabase Schema
 -- Run in Supabase SQL Editor: https://supabase.com/dashboard/project/pbjxhvuvkiksmueaerfe/sql
 -- Storage buckets: article-images, author-images, site-assets, epapers, advertisements, gallery
 
@@ -385,7 +385,7 @@ create policy "Auth write epapers" on storage.objects for insert with check (buc
 -- SEED: default categories (Hindi news)
 insert into public.categories (name, name_hi, slug, description, display_order) values
 ('National & World','देश-विदेश','desh-videsh','National and international news',1),
-('State','प्रदेश','pradesh','Madhya Pradesh and Chitrakoot',2),
+('State','प्रदेश','pradesh','Uttar Pradesh and Kushinagar',2),
 ('Sports','खेल','khel','Cricket and sports',3),
 ('Spiritual','धर्म','dharm','Dharma and religion',4),
 ('Entertainment','मनोरंजन','manoranjan','Bollywood and entertainment',5),
@@ -396,25 +396,26 @@ on conflict (slug) do nothing;
 
 -- SEED: locations
 insert into public.locations (name, name_hi, slug, type) values
-('Madhya Pradesh','मध्यप्रदेश','madhya-pradesh','state'),
 ('Uttar Pradesh','उत्तर प्रदेश','uttar-pradesh','state'),
-('Chitrakoot','चित्रकूट','chitrakoot','district'),
-('Bhopal','भोपाल','bhopal','city'),
-('Rewa','रीवा','rewa','city'),
-('Satna','सतना','satna','city')
+('Kushinagar','कुशीनगर','kushinagar','district'),
+('Padrauna','पडरौना','padrauna','city'),
+('Gorakhpur','गोरखपुर','gorakhpur','city'),
+('Deoria','देवरिया','deoria','city'),
+('Maharajganj','महराजगंज','maharajganj','city')
 on conflict (slug) do nothing;
 
 -- SEED: site settings
 insert into public.site_settings (key, value, description) values
-('site_name', '"Chitrakoot Jyoti"'::jsonb, 'Website name'),
-('site_name_hi', '"चित्रकूट ज्योति"'::jsonb, 'Hindi name'),
-('tagline', '"Daily News from Bhopal to Chitrakoot"'::jsonb, 'Tagline'),
+('site_name', '"Chanakya Bharat"'::jsonb, 'Website name'),
+('site_name_hi', '"चाणक्य भारत"'::jsonb, 'Hindi name'),
+('tagline', '"Daily News from Kushinagar to Kushinagar"'::jsonb, 'Tagline'),
 ('logo_url', '"/assets/logo.jpg"'::jsonb, 'Logo'),
-('contact_email', '"chitrakootjyotinews@gmail.com"'::jsonb, 'Contact'),
-('contact_phone', '"8827294576, 8982635688"'::jsonb, 'Phone'),
-('editor_name', '"Rajkumar Soni"'::jsonb, 'Editor'),
-('editor_name_hi', '"राजकुमार सोनी"'::jsonb, 'Editor Hindi'),
-('address', '"Bhopal (MP)"'::jsonb, 'Address')
+('contact_phone', '"9919529245"'::jsonb, 'Phone'),
+('location', '"कुशीनगर (उत्तर प्रदेश)"'::jsonb, 'Location'),
+('location_en', '"Kushinagar (Uttar Pradesh)"'::jsonb, 'Location EN'),
+('editor_name', '"Chanakya Bharat Editorial Team"'::jsonb, 'Editor'),
+('editor_name_hi', '"चाणक्य भारत संपादक मंडल"'::jsonb, 'Editor Hindi'),
+('address', '"Kushinagar (UP)"'::jsonb, 'Address')
 on conflict (key) do nothing;
 
 -- SEED: homepage sections

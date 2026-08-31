@@ -5,13 +5,13 @@ import { X, MapPin, Sparkles } from 'lucide-react';
 
 interface MegaMenuProps { isOpen: boolean; onClose: () => void; }
 
-const mpDistricts = [
-  { name: 'भोपाल', cities: ['भोपाल', 'सीहोर', 'रायसेन'] },
-  { name: 'इंदौर', cities: ['इंदौर', 'धार', 'उज्जैन'] },
-  { name: 'जबलपुर', cities: ['जबलपुर', 'कटनी', 'मंडला'] },
-  { name: 'ग्वालियर', cities: ['ग्वालियर', 'मुरैना', 'भिंड'] },
-  { name: 'रीवा', cities: ['रीवा', 'सतना', 'सीधी'] },
-  { name: 'चित्रकूट', cities: ['चित्रकूट', 'मऊ', 'सतना'] },
+const upDistricts = [
+  { name: 'कुशीनगर', cities: ['पडरौना', 'कप्तानगंज', 'हाटा'] },
+  { name: 'गोरखपुर', cities: ['गोरखपुर', 'खजनी', 'सहजनवा'] },
+  { name: 'देवरिया', cities: ['देवरिया', 'रुद्रपुर', 'बरहज'] },
+  { name: 'महराजगंज', cities: ['महराजगंज', 'निचलौल', 'फरेंदा'] },
+  { name: 'सिद्धार्थनगर', cities: ['सिद्धार्थनगर', 'डुमरियागंज', 'बांसी'] },
+  { name: 'पूर्वांचल', cities: ['वाराणसी', 'आजमगढ़', 'बलिया'] },
 ];
 
 export const MegaMenu: React.FC<MegaMenuProps> = ({ isOpen, onClose }) => {
@@ -24,7 +24,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ isOpen, onClose }) => {
         <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 mb-4 sticky top-0 bg-[#FEFCF8] dark:bg-[#0F172A] z-10">
           <div className="flex items-center gap-2">
             <span className="font-devanagari font-black text-lg text-[#8B0000]">सभी वर्ग</span>
-            <span className="text-[10px] bg-[#8B0000] text-white font-bold px-2 py-0.5 rounded">चित्रकूट ज्योति इंडेक्स</span>
+            <span className="text-[10px] bg-[#8B0000] text-white font-bold px-2 py-0.5 rounded">चाणक्य भारत इंडेक्स</span>
           </div>
           <button onClick={onClose} className="p-2 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-[#8B0000] hover:text-white"><X className="w-5 h-5" /></button>
         </div>
@@ -60,9 +60,9 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ isOpen, onClose }) => {
           <div>
             <h4 className="font-devanagari font-bold text-xs uppercase tracking-wider text-[#8B0000] mb-3 border-b border-red-200 pb-1 flex items-center gap-1"><MapPin className="w-3.5 h-3.5" /> मप्र ब्यूरो</h4>
             <div className="space-y-1 text-xs font-devanagari">
-              {mpDistricts.map(st => (
+              {upDistricts.map(st => (
                 <div key={st.name} className="py-1 border-b border-slate-100 dark:border-slate-800/60">
-                  <Link to={`/state/madhya-pradesh`} onClick={onClose} className="font-semibold hover:text-[#8B0000] block">{st.name}</Link>
+                  <Link to={`/state/uttar-pradesh`} onClick={onClose} className="font-semibold hover:text-[#8B0000] block">{st.name}</Link>
                   <div className="text-[11px] text-slate-500">{st.cities.join(' • ')}</div>
                 </div>
               ))}

@@ -97,7 +97,7 @@ export const HomePage: React.FC = () => {
           </div>
           <div className="bg-amber-50 dark:bg-slate-900 border border-amber-200 rounded-xl p-4">
             <p className={`${isEn?'':'font-devanagari'} font-bold text-[#8B0000]`}>{isEn?'Thought of the day':'आज का विचार'}</p>
-            <p className={`${isEn?'':'font-devanagari'} text-sm mt-1 leading-relaxed`}>{isEn?'"The light of dharma illuminates life — devotees throng Chitrakoot Dham daily."':'“धर्म की ज्योति से ही जीवन में प्रकाश आता है — चित्रकूट धाम में प्रतिदिन भक्तों का जनसैलाब।”'}</p>
+            <p className={`${isEn?'':'font-devanagari'} text-sm mt-1 leading-relaxed`}>{isEn?'"The light of dharma illuminates life — devotees throng Kushinagar Dham daily."':'“धर्म की ज्योति से ही जीवन में प्रकाश आता है — कुशीनगर धाम में प्रतिदिन भक्तों का जनसैलाब।”'}</p>
             <Link to="/dharm" className="text-xs font-bold text-[#8B0000] mt-2 inline-block">{isEn?'Read spiritual news →':'धर्म खबरें पढ़ें →'}</Link>
           </div>
           <div className="grid grid-cols-2 gap-3 mt-3">

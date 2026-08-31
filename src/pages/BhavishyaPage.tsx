@@ -46,7 +46,7 @@ export const BhavishyaPage: React.FC = () => {
       <div className="flex flex-wrap items-center gap-2 pb-3 mb-4 border-b-2 border-[#8B0000]">
         <span className="text-[11px] font-bold tracking-widest text-[#8B0000] bg-amber-100 px-2 py-1 rounded">भविष्य जिज्ञासा</span>
         <h1 className="font-devanagari font-black text-2xl sm:text-3xl text-slate-900 dark:text-slate-100">{currentTab.label}</h1>
-        <span className="text-xs text-slate-500 hidden sm:inline">• चित्रकूट ज्योति ज्योतिष डेस्क • भोपाल</span>
+        <span className="text-xs text-slate-500 hidden sm:inline">• चाणक्य भारत ज्योतिष डेस्क • कुशीनगर</span>
       </div>
 
       <div className="flex gap-2 overflow-x-auto no-scrollbar mb-6">
@@ -59,7 +59,7 @@ export const BhavishyaPage: React.FC = () => {
         <>
           <div className="bg-gradient-to-r from-[#8B0000] to-[#b91c1c] text-white p-4 sm:p-5 rounded-xl mb-6">
             <h2 className="font-devanagari font-black text-xl">आज का राशिफल — 30 अगस्त 2026, शनिवार</h2>
-            <p className="text-amber-100 text-sm mt-1">आचार्य पंडित द्वारा प्रेषित • भोपाल पंचांग के अनुसार</p>
+            <p className="text-amber-100 text-sm mt-1">आचार्य पंडित द्वारा प्रेषित • कुशीनगर पंचांग के अनुसार</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {rashifal.map(r => (
@@ -94,9 +94,9 @@ export const BhavishyaPage: React.FC = () => {
           </div>
           <div className="bg-amber-50 dark:bg-slate-900 rounded-xl border border-amber-200 p-5">
             <h3 className="font-bold font-devanagari text-[#8B0000] mb-2">आज का विशेष</h3>
-            <p className="text-sm font-devanagari leading-relaxed">आज शनिवार को शनि देव की पूजा का विशेष महत्व है। सरसों के तेल का दीपक जलाएं, काले तिल का दान करें। चित्रकूट धाम में आज भक्तों की भीड़।</p>
+            <p className="text-sm font-devanagari leading-relaxed">आज शनिवार को शनि देव की पूजा का विशेष महत्व है। सरसों के तेल का दीपक जलाएं, काले तिल का दान करें। कुशीनगर धाम में आज भक्तों की भीड़।</p>
             <div className="mt-4 p-3 bg-white dark:bg-slate-800 rounded-lg border text-xs">
-              <p className="font-bold">📍 चित्रकूट ज्योति पंचांग डेस्क</p><p className="text-slate-600">सटीक वैदिक गणना • भोपाल (मप्र) • प्रतिदिन सुबह 5 बजे अपडेट</p>
+              <p className="font-bold">📍 चाणक्य भारत पंचांग डेस्क</p><p className="text-slate-600">सटीक वैदिक गणना • कुशीनगर (उत्तर प्रदेश) • प्रतिदिन सुबह 5 बजे अपडेट</p>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@ export const BhavishyaPage: React.FC = () => {
               <div className="bg-slate-50 p-3 rounded border"><span className="font-bold text-amber-700">प्रेम:</span> वैवाहिक जीवन में मधुरता</div>
             </div>
           </div>
-          <p className="text-xs text-slate-500 text-center">ज्योतिषाचार्य से परामर्श: chitrakootjyotinews@gmail.com • 8827294576</p>
+          <p className="text-xs text-slate-500 text-center">ज्योतिषाचार्य से परामर्श: chanakyabharatnews@gmail.com • 9919529245</p>
         </div>
       )}
 

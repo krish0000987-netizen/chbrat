@@ -2,10 +2,12 @@ import { supabase } from '../lib/supabase';
 export interface DbLocation { id:string; name:string; name_hi?:string; slug:string; type:'state'|'district'|'city'|'locality'; parent_id?:string|null; is_active:boolean; created_at:string; }
 const LS='cj_locations_db';
 const seed:DbLocation[]=[
-  {id:'loc-mp',name:'Madhya Pradesh',name_hi:'मध्यप्रदेश',slug:'madhya-pradesh',type:'state',is_active:true,created_at:new Date().toISOString()},
   {id:'loc-up',name:'Uttar Pradesh',name_hi:'उत्तर प्रदेश',slug:'uttar-pradesh',type:'state',is_active:true,created_at:new Date().toISOString()},
-  {id:'loc-chitrakoot',name:'Chitrakoot',name_hi:'चित्रकूट',slug:'chitrakoot',type:'district',parent_id:'loc-mp',is_active:true,created_at:new Date().toISOString()},
-  {id:'loc-bhopal',name:'Bhopal',name_hi:'भोपाल',slug:'bhopal',type:'city',is_active:true,created_at:new Date().toISOString()},
+  {id:'loc-kushinagar',name:'Kushinagar',name_hi:'कुशीनगर',slug:'kushinagar',type:'district',parent_id:'loc-up',is_active:true,created_at:new Date().toISOString()},
+  {id:'loc-padrauna',name:'Padrauna',name_hi:'पडरौना',slug:'padrauna',type:'city',parent_id:'loc-kushinagar',is_active:true,created_at:new Date().toISOString()},
+  {id:'loc-gorakhpur',name:'Gorakhpur',name_hi:'गोरखपुर',slug:'gorakhpur',type:'city',is_active:true,created_at:new Date().toISOString()},
+  {id:'loc-deoria',name:'Deoria',name_hi:'देवरिया',slug:'deoria',type:'city',is_active:true,created_at:new Date().toISOString()},
+  {id:'loc-maharajganj',name:'Maharajganj',name_hi:'महराजगंज',slug:'maharajganj',type:'city',is_active:true,created_at:new Date().toISOString()},
 ];
 function getLocal():DbLocation[]{ try{const r=localStorage.getItem(LS); if(r) return JSON.parse(r); localStorage.setItem(LS,JSON.stringify(seed)); return seed;}catch{return seed} }
 function setLocal(d:DbLocation[]){ try{localStorage.setItem(LS,JSON.stringify(d));}catch{} }

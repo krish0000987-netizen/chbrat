@@ -14,10 +14,10 @@ export const GlobalFooter: React.FC = () => {
         <div className="flex flex-col lg:flex-row gap-6 pb-6 border-b border-white/10">
           <div className="flex-1">
             <div className="flex items-center gap-3">
-              <img src="/assets/logo.jpg" alt="logo" className="h-10 sm:h-12 w-auto rounded border border-white/20 bg-white" />
+              <img src="/assets/logo.jpg" alt="चाणक्य भारत लोगो" className="h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover border-2 border-amber-400 bg-white shadow-md shrink-0" />
               <div>
-                <h2 className={`font-black text-2xl sm:text-3xl text-white leading-none ${isEn?'':'font-devanagari'}`}>{isEn?'Chitrakoot Jyoti':'चित्रकूट ज्योति'}</h2>
-                <p className="text-xs text-amber-300 font-bold tracking-widest uppercase">{isEn?'Daily • Bhopal • Madhya Pradesh':'दैनिक • भोपाल • मध्यप्रदेश'}</p>
+                <h2 className={`font-black text-2xl sm:text-3xl text-white leading-none ${isEn?'':'font-devanagari'}`}>{isEn?'Chanakya Bharat':'चाणक्य भारत'}</h2>
+                <p className="text-xs text-amber-300 font-bold tracking-widest uppercase">खोजी समाचार • {isEn?'Kushinagar • Uttar Pradesh':'कुशीनगर • उत्तर प्रदेश'} • 9919529245</p>
               </div>
             </div>
             <p className={`text-sm text-slate-300 mt-3 leading-relaxed max-w-2xl ${isEn?'':'font-devanagari'}`}>
@@ -38,14 +38,14 @@ export const GlobalFooter: React.FC = () => {
             <div className="flex gap-3">
               <img src="/assets/founder.jpg" alt="editor" className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border-2 border-[#8B0000] shadow" />
               <div className="flex-1 min-w-0">
-                <h3 className={`font-black text-base leading-none ${isEn?'':'font-devanagari'}`}>{isEn?'Rajkumar Soni':'राजकुमार सोनी'}</h3>
+                <h3 className={`font-black text-base leading-none ${isEn?'':'font-devanagari'}`}>{isEn?'Chanakya Bharat Editorial Team':'चाणक्य भारत संपादक मंडल'}</h3>
                 <p className="text-xs font-bold text-[#8B0000] bg-amber-100 inline-block px-2 py-0.5 rounded-full mt-1">{isEn?'Editor':'संपादक'}</p>
-                <p className="text-xs text-slate-600 flex items-center gap-1 mt-1"><MapPin className="w-3 h-3" /> {t.common.bhopalMP}</p>
+                <p className="text-xs text-slate-600 flex items-center gap-1 mt-1"><MapPin className="w-3 h-3" /> {(t.common as any).kushinagarUP || (t.common as any).bhopalMP}</p>
               </div>
             </div>
             <div className="mt-3 space-y-1.5 text-xs">
-              <a href="tel:+918827294576" className="flex items-center gap-2 bg-slate-50 border rounded-lg px-3 py-2 hover:bg-amber-50"><Phone className="w-3.5 h-3.5 text-[#8B0000]" /> 8827294576, 8982635688</a>
-              <a href="mailto:chitrakootjyotinews@gmail.com" className="flex items-center gap-2 bg-slate-50 border rounded-lg px-3 py-2 hover:bg-amber-50 break-all"><Mail className="w-3.5 h-3.5 text-[#8B0000]" /> chitrakootjyotinews@gmail.com</a>
+              <a href="tel:+919919529245" className="flex items-center gap-2 bg-slate-50 border rounded-lg px-3 py-2 hover:bg-amber-50"><Phone className="w-3.5 h-3.5 text-[#8B0000]" /> 9919529245</a>
+              <div className="flex items-center gap-2 bg-slate-50 border rounded-lg px-3 py-2 text-slate-700"><MapPin className="w-3.5 h-3.5 text-[#8B0000]" /> कुशीनगर (उत्तर प्रदेश)</div>
             </div>
             <p className="text-[10px] text-slate-500 mt-2 text-center">{isEn?'For news / ads contact':'संपर्क • विज्ञापन • समाचार हेतु संपर्क करें'}</p>
           </div>
@@ -96,8 +96,8 @@ export const GlobalFooter: React.FC = () => {
         </div>
 
         <div className="pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-400">
-          <p className={`flex items-center gap-1 ${isEn?'':'font-devanagari'}`}>© 2026 {isEn?'Chitrakoot Jyoti':'दैनिक चित्रकूट ज्योति'} • {isEn?'All rights reserved':'सर्वाधिकार सुरक्षित'} • <Heart className="w-3 h-3 text-red-500 inline" /> {isEn?'Published from Bhopal':'भोपाल से प्रकाशित'}</p>
-          <p className="text-[10px] text-slate-500 text-center">RNI No. • Bhopal • Design: Chitrakoot Jyoti Digital Desk</p>
+          <p className={`flex items-center gap-1 ${isEn?'':'font-devanagari'}`}>© 2026 {isEn?'Chanakya Bharat':'दैनिक चाणक्य भारत'} • {isEn?'All rights reserved':'सर्वाधिकार सुरक्षित'} • <Heart className="w-3 h-3 text-red-500 inline" /> {isEn?'Published from Kushinagar':'कुशीनगर से प्रकाशित'}</p>
+          <p className="text-[10px] text-slate-500 text-center">RNI No. • Kushinagar • Design: Chanakya Bharat Digital Desk</p>
         </div>
       </div>
     </footer>

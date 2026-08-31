@@ -88,9 +88,9 @@ export const SiteSettingsManager: React.FC = () => {
           <div className="space-y-4">
             <h3 className="font-black text-sm">General</h3>
             <div className="grid md:grid-cols-2 gap-4">
-              <div><label className="block text-xs font-bold mb-1">Site Name (EN)</label><input value={form.site_name||''} onChange={e=>setForm({...form, site_name:e.target.value})} placeholder="Chitrakoot Jyoti" className="w-full px-3 py-2 rounded-xl border bg-slate-50" /></div>
-              <div><label className="block text-xs font-bold mb-1">Site Name (HI)</label><input value={form.site_name_hi||''} onChange={e=>setForm({...form, site_name_hi:e.target.value})} placeholder="चित्रकूट ज्योति" className="w-full px-3 py-2 rounded-xl border bg-slate-50 font-devanagari" /></div>
-              <div><label className="block text-xs font-bold mb-1">Tagline</label><input value={form.tagline||''} onChange={e=>setForm({...form, tagline:e.target.value})} placeholder="Daily News from Bhopal to Chitrakoot" className="w-full px-3 py-2 rounded-xl border bg-slate-50" /></div>
+              <div><label className="block text-xs font-bold mb-1">Site Name (EN)</label><input value={form.site_name||''} onChange={e=>setForm({...form, site_name:e.target.value})} placeholder="Chanakya Bharat" className="w-full px-3 py-2 rounded-xl border bg-slate-50" /></div>
+              <div><label className="block text-xs font-bold mb-1">Site Name (HI)</label><input value={form.site_name_hi||''} onChange={e=>setForm({...form, site_name_hi:e.target.value})} placeholder="चाणक्य भारत" className="w-full px-3 py-2 rounded-xl border bg-slate-50 font-devanagari" /></div>
+              <div><label className="block text-xs font-bold mb-1">Tagline</label><input value={form.tagline||''} onChange={e=>setForm({...form, tagline:e.target.value})} placeholder="खोजी समाचार" className="w-full px-3 py-2 rounded-xl border bg-slate-50" /></div>
               <div><label className="block text-xs font-bold mb-1">Logo URL</label><div className="flex gap-2"><input value={form.logo_url||''} onChange={e=>setForm({...form, logo_url:e.target.value})} placeholder="/assets/logo.jpg or https://..." className="flex-1 px-3 py-2 rounded-xl border bg-slate-50 font-mono text-xs" /><label className="px-3 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold cursor-pointer flex items-center gap-1"><Upload className="w-3 h-3"/> Upload <input type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} /></label></div>{form.logo_url && <img src={form.logo_url} alt="logo" className="mt-2 h-10 object-contain border rounded bg-white p-1" />}</div>
             </div>
           </div>
@@ -113,8 +113,8 @@ export const SiteSettingsManager: React.FC = () => {
             <h3 className="font-black text-sm">Contact</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div><label className="block text-xs font-bold mb-1">Contact Email</label><input value={form.contact_email||''} onChange={e=>setForm({...form, contact_email:e.target.value})} className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
-              <div><label className="block text-xs font-bold mb-1">Contact Phone</label><input value={form.contact_phone||''} onChange={e=>setForm({...form, contact_phone:e.target.value})} placeholder="8827294576, 8982635688" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
-              <div><label className="block text-xs font-bold mb-1">Address</label><input value={form.address||''} onChange={e=>setForm({...form, address:e.target.value})} placeholder="Bhopal (MP)" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
+              <div><label className="block text-xs font-bold mb-1">Contact Phone</label><input value={form.contact_phone||''} onChange={e=>setForm({...form, contact_phone:e.target.value})} placeholder="9919529245" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
+              <div><label className="block text-xs font-bold mb-1">Address</label><input value={form.address||''} onChange={e=>setForm({...form, address:e.target.value})} placeholder="Kushinagar (UP)" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
               <div><label className="block text-xs font-bold mb-1">Editor Name</label><input value={form.editor_name||''} onChange={e=>setForm({...form, editor_name:e.target.value})} className="w-full px-3 py-2 rounded-xl border bg-slate-50" /></div>
               <div><label className="block text-xs font-bold mb-1">Editor Name (HI)</label><input value={form.editor_name_hi||''} onChange={e=>setForm({...form, editor_name_hi:e.target.value})} className="w-full px-3 py-2 rounded-xl border bg-slate-50 font-devanagari" /></div>
             </div>
@@ -144,7 +144,7 @@ export const SiteSettingsManager: React.FC = () => {
             <h3 className="font-black text-sm">SEO Defaults</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div><label className="block text-xs font-bold mb-1">SEO Site Title</label><input value={form.seo_site_title||form.site_name||''} onChange={e=>setForm({...form, seo_site_title:e.target.value})} className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
-              <div><label className="block text-xs font-bold mb-1">SEO Keywords</label><input value={form.seo_keywords||''} onChange={e=>setForm({...form, seo_keywords:e.target.value})} placeholder="chitrakoot, news" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
+              <div><label className="block text-xs font-bold mb-1">SEO Keywords</label><input value={form.seo_keywords||''} onChange={e=>setForm({...form, seo_keywords:e.target.value})} placeholder="kushinagar, news" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
               <div className="md:col-span-2"><label className="block text-xs font-bold mb-1">SEO Description</label><textarea value={form.seo_site_description||''} onChange={e=>setForm({...form, seo_site_description:e.target.value})} rows={2} className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
               <div><label className="block text-xs font-bold mb-1">OG Image URL</label><input value={form.seo_og_image||''} onChange={e=>setForm({...form, seo_og_image:e.target.value})} placeholder="https://.../og.jpg" className="w-full px-3 py-2 rounded-xl border bg-slate-50 font-mono text-xs" /></div>
             </div>
@@ -155,7 +155,7 @@ export const SiteSettingsManager: React.FC = () => {
           <div className="space-y-4">
             <h3 className="font-black text-sm">Footer</h3>
             <div><label className="block text-xs font-bold mb-1">Footer Text</label><textarea value={form.footer_text||''} onChange={e=>setForm({...form, footer_text:e.target.value})} rows={3} placeholder="Footer description..." className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
-            <div><label className="block text-xs font-bold mb-1">Copyright</label><input value={form.footer_copyright||''} onChange={e=>setForm({...form, footer_copyright:e.target.value})} placeholder="© 2026 Chitrakoot Jyoti" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
+            <div><label className="block text-xs font-bold mb-1">Copyright</label><input value={form.footer_copyright||''} onChange={e=>setForm({...form, footer_copyright:e.target.value})} placeholder="© 2026 Chanakya Bharat" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-sm" /></div>
             <div><label className="block text-xs font-bold mb-1">Footer Links (JSON)</label><textarea value={form.footer_links||''} onChange={e=>setForm({...form, footer_links:e.target.value})} placeholder='[{"label":"About","url":"/about"}]' rows={3} className="w-full px-3 py-2 rounded-xl border bg-slate-50 font-mono text-xs" /></div>
           </div>
         )}

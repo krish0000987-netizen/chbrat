@@ -5,10 +5,10 @@ import { auditService } from '../../services/auditLogs';
 import { Save, Search, Globe, FileText, AlertCircle } from 'lucide-react';
 
 const KEYS=[
-  { key:'seo_site_title', label:'Site Title', placeholder:'Chitrakoot Jyoti — Hindi News' },
-  { key:'seo_site_description', label:'Site Description', placeholder:'Daily Hindi news from Madhya Pradesh...' },
-  { key:'seo_keywords', label:'Keywords', placeholder:'chitrakoot, news, hindi' },
-  { key:'seo_canonical_base', label:'Canonical Base URL', placeholder:'https://chitrakootjyoti.com' },
+  { key:'seo_site_title', label:'Site Title', placeholder:'Chanakya Bharat — Hindi News' },
+  { key:'seo_site_description', label:'Site Description', placeholder:'Daily Hindi news from Uttar Pradesh...' },
+  { key:'seo_keywords', label:'Keywords', placeholder:'kushinagar, news, hindi' },
+  { key:'seo_canonical_base', label:'Canonical Base URL', placeholder:'https://chanakyabharat.com' },
   { key:'seo_og_image', label:'Default OG Image URL', placeholder:'https://.../og-image.jpg' },
   { key:'seo_twitter_image', label:'Twitter Image URL', placeholder:'https://...' },
   { key:'seo_robots', label:'Robots (index,follow)', placeholder:'index, follow' },

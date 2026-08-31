@@ -49,10 +49,10 @@ export const AdminLayout: React.FC<{children: React.ReactNode}> = ({ children })
       {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#1a0000] text-slate-200 flex flex-col border-r border-white/10 transition-transform lg:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="p-4 border-b border-white/10 flex items-center gap-3">
-          <img src="/assets/logo.jpg" alt="logo" className="h-8 w-auto rounded bg-white p-0.5" />
+          <img src="/assets/logo.jpg" alt="चाणक्य भारत लोगो" className="h-9 w-9 rounded-full object-cover border border-amber-400 bg-white shadow-sm" />
           <div>
-            <h1 className="font-black text-sm leading-none">Chitrakoot Jyoti</h1>
-            <p className="text-[10px] text-amber-300 uppercase tracking-widest">Newsroom CMS</p>
+            <h1 className="font-black text-sm leading-none">Chanakya Bharat</h1>
+            <p className="text-[10px] text-amber-300 uppercase tracking-widest">खोजी समाचार • 9919529245</p>
           </div>
           <button onClick={()=>setMobileOpen(false)} className="lg:hidden ml-auto p-1 hover:bg-white/10 rounded"><X className="w-4 h-4" /></button>
         </div>

@@ -1,4 +1,4 @@
-// Simple bilingual dictionary for Chitrakoot Jyoti
+// Simple bilingual dictionary for Chanakya Bharat — खोजी समाचार • Kushinagar (UP)
 export const translations = {
   hi: {
     nav: {
@@ -24,7 +24,7 @@ export const translations = {
       search: 'खोजें',
       वर्ग: 'वर्ग',
       contact: 'संपर्क',
-      cityPlaceholder: 'भोपाल',
+      cityPlaceholder: 'कुशीनगर',
     },
     breaking: 'ब्रेकिंग न्यूज़',
     common: {
@@ -32,11 +32,13 @@ export const translations = {
       live: 'लाइव',
       trending: 'चर्चित खबरें',
       contactEditor: 'संपादक',
-      bhopalMP: 'भोपाल (मप्र)',
+      bhopalMP: 'कुशीनगर (उत्तर प्रदेश)',
+      kushinagarUP: 'कुशीनगर (उत्तर प्रदेश)',
+      locationShort: 'कुशीनगर (उत्तर प्रदेश)',
       subscribe: 'सब्सक्राइब',
     },
     home: {
-      pradeshTitle: 'प्रदेश • मध्यप्रदेश / चित्रकूट',
+      pradeshTitle: 'प्रदेश • उत्तर प्रदेश / कुशीनगर',
       techDesk: 'टेक डेस्क',
       khelTitle: 'खेल',
       manoranjan: 'मनोरंजन',
@@ -47,7 +49,7 @@ export const translations = {
       bhavishyaTitle: 'भविष्य जिज्ञासा',
     },
     footer: {
-      tagline: 'दैनिक चित्रकूट ज्योति न्यूज पेपर एवं वेबपोर्टल में वैचारिक, सकारात्मक, देश-दुनिया, क्राइम, सायबर अपराध, धर्म, ज्योतिष, वास्तु, कैरियर, लाइफस्टाइल सहित विविध विधाओं की ताजा खबरें मिलेंगी।',
+      tagline: 'दैनिक चाणक्य भारत — खोजी समाचार ■ कुशीनगर (उत्तर प्रदेश) से प्रकाशित वैचारिक, सकारात्मक, देश-दुनिया, क्राइम, धर्म, ज्योतिष, वास्तु, कैरियर, लाइफस्टाइल सहित विविध विधाओं की ताजा खोजी खबरें।',
       mainNews: 'मुख्य समाचार',
       otherSections: 'अन्य वर्ग',
       company: 'कंपनी',
@@ -85,7 +87,7 @@ export const translations = {
       search: 'Search',
       वर्ग: 'Sections',
       contact: 'Contact',
-      cityPlaceholder: 'Bhopal',
+      cityPlaceholder: 'Kushinagar',
     },
     breaking: 'Breaking News',
     common: {
@@ -93,11 +95,13 @@ export const translations = {
       live: 'Live',
       trending: 'Trending',
       contactEditor: 'Editor',
-      bhopalMP: 'Bhopal (MP)',
+      bhopalMP: 'Kushinagar (UP)',
+      kushinagarUP: 'Kushinagar (UP)',
+      locationShort: 'Kushinagar (UP)',
       subscribe: 'Subscribe',
     },
     home: {
-      pradeshTitle: 'State • Madhya Pradesh / Chitrakoot',
+      pradeshTitle: 'State • Uttar Pradesh / Kushinagar',
       techDesk: 'Tech Desk',
       khelTitle: 'Sports',
       manoranjan: 'Entertainment',
@@ -108,7 +112,7 @@ export const translations = {
       bhavishyaTitle: 'Astrology',
     },
     footer: {
-      tagline: 'Daily Chitrakoot Jyoti brings you ideological, positive, national, crime, cyber, spiritual, astrology, career and lifestyle news — from Bhopal to Chitrakoot.',
+      tagline: 'Daily Chanakya Bharat — खोजी समाचार brings you ideological, positive, national, crime, cyber, spiritual, astrology, career and lifestyle news — from Kushinagar (UP) to entire Bharat.',
       mainNews: 'Main News',
       otherSections: 'More Sections',
       company: 'Company',
