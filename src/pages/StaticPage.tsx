@@ -47,18 +47,11 @@ export const StaticPage: React.FC = () => {
                 </ul>
               </div>
               <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border">
-                <h3 className="font-black text-slate-900 dark:text-white mb-2">संपादकीय कार्यालय</h3>
-                <div className="flex gap-3">
-                  <img src="/assets/founder.jpg" alt="चाणक्य भारत संपादक मंडल" className="w-14 h-14 rounded-full object-cover border-2 border-[#8B0000]" />
-                  <div className="text-xs">
-                    <p className="font-black font-devanagari text-sm">चाणक्य भारत संपादक मंडल</p>
-                    <p className="text-[#8B0000] font-bold">(संपादक)</p>
-                    <p className="text-slate-600">कुशीनगर (उत्तर प्रदेश)</p>
-                  </div>
-                </div>
-                <div className="mt-3 space-y-1 text-xs">
+                <h3 className="font-black text-slate-900 dark:text-white mb-2">संपर्क कार्यालय</h3>
+                <div className="space-y-1 text-xs">
+                  <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-[#8B0000]" /> कुशीनगर (उत्तर प्रदेश)</p>
                   <p className="flex items-center gap-2"><Phone className="w-3 h-3 text-[#8B0000]" /> 9919529245</p>
-                  <p className="flex items-center gap-2"><MapPin className="w-3 h-3 text-[#8B0000]" /> कुशीनगर (उत्तर प्रदेश) • खोजी समाचार</p>
+                  <p className="text-[11px] text-slate-500">खोजी समाचार • चाणक्य भारत • कुशीनगर</p>
                 </div>
               </div>
             </div>
@@ -75,7 +68,7 @@ export const StaticPage: React.FC = () => {
             <h2 className="font-devanagari font-bold text-xl text-[#8B0000]">संपर्क सूत्र</h2>
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="bg-amber-50 dark:bg-slate-800 p-4 rounded-xl border border-amber-200">
-                <h3 className="font-black font-devanagari flex items-center gap-2"><img src="/assets/founder.jpg" className="w-8 h-8 rounded-full object-cover" /> चाणक्य भारत संपादक मंडल (संपादक)</h3>
+                <h3 className="font-black font-devanagari">चाणक्य भारत — संपर्क</h3>
                 <p className="text-xs mt-2 space-y-1">
                   <span className="flex items-center gap-2"><MapPin className="w-3 h-3" /> कुशीनगर (उत्तर प्रदेश)</span>
                   <a href="tel:9919529245" className="flex items-center gap-2 text-[#8B0000] font-bold"><Phone className="w-3 h-3" /> 9919529245</a>
@@ -104,7 +97,7 @@ export const StaticPage: React.FC = () => {
             <h3 className="font-black text-[#8B0000] text-lg">विज्ञापन हेतु संपर्क</h3>
             <p className="text-sm text-slate-600">प्रिंट + वेब + ई-पेपर कॉम्बो पैकेज उपलब्ध। जिला स्तर तक लक्षित विज्ञापन।</p>
             <div className="bg-amber-50 border border-amber-200 p-3 rounded-lg text-sm">
-              <p>📞 9919529245</p><p>📍 कुशीनगर (उत्तर प्रदेश) — संपादक: चाणक्य भारत संपादक मंडल</p>
+              <p>📞 9919529245</p><p>📍 कुशीनगर (उत्तर प्रदेश) — चाणक्य भारत मीडिया</p>
             </div>
           </div>
         )}

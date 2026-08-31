@@ -1,4 +1,5 @@
-// Simple bilingual dictionary for Chanakya Bharat — खोजी समाचार • Kushinagar (UP)
+// Five-language dictionary for Chanakya Bharat — खोजी समाचार • Kushinagar (UP)
+// Supported: hi, en, bho (Bhojpuri), ur (Urdu), bn (Bengali)
 export const translations = {
   hi: {
     nav: {
@@ -125,8 +126,204 @@ export const translations = {
       edition: 'Edition',
       download: 'Download PDF',
     }
+  },
+  bho: {
+    nav: {
+      home: 'मुख पन्ना',
+      deshVidesh: 'देश-विदेश',
+      pradesh: 'प्रदेश',
+      khel: 'खेल',
+      dharm: 'धर्म',
+      manoranjan: 'मनोरंजन',
+      vichar: 'विचार',
+      lifestyle: 'लाइफस्टाइल',
+      tech: 'टेक',
+      epaper: 'ई-पेपर',
+      bhavishya: 'भविष्य',
+      bhavishyavani: 'भविष्यवाणी',
+      rashifal: 'राशिफल',
+      panchang: 'पंचांग',
+      vrat: 'व्रत-त्योहार',
+    },
+    header: {
+      epaper: 'ई-पेपर पढ़ीं',
+      login: 'लॉगिन',
+      search: 'खोजीं',
+      वर्ग: 'वर्ग',
+      contact: 'संपर्क',
+      cityPlaceholder: 'कुशीनगर',
+    },
+    breaking: 'ब्रेकिंग न्यूज',
+    common: {
+      readMore: 'आउर देखीं',
+      live: 'लाइव',
+      trending: 'चर्चित खबर',
+      contactEditor: 'संपादक',
+      bhopalMP: 'कुशीनगर (उत्तर प्रदेश)',
+      kushinagarUP: 'कुशीनगर (उत्तर प्रदेश)',
+      locationShort: 'कुशीनगर',
+      subscribe: 'सब्सक्राइब',
+    },
+    home: {
+      pradeshTitle: 'प्रदेश • कुशीनगर',
+      techDesk: 'टेक',
+      khelTitle: 'खेल',
+      manoranjan: 'मनोरंजन',
+      dharmJyotish: 'धर्म • ज्योतिष',
+      videoNews: 'वीडियो',
+      vicharTitle: 'विचार',
+      factCheck: 'फैक्ट चेक',
+      bhavishyaTitle: 'भविष्य',
+    },
+    footer: {
+      tagline: 'चाणक्य भारत — भोजपुरी • खोजी समाचार — कुशीनगर से देश-दुनिया के समाचार।',
+      mainNews: 'मुख्य खबर',
+      otherSections: 'अन्य वर्ग',
+      company: 'कंपनी',
+      about: 'हमरा बारे में',
+      contact: 'संपर्क',
+      advertise: 'विज्ञापन',
+    },
+    epaper: {
+      title: 'ई-पेपर — अखबार जइसन',
+      edition: 'संस्करण',
+      download: 'डाउनलोड',
+    }
+  },
+  ur: {
+    nav: {
+      home: 'ہوم',
+      deshVidesh: 'ملک و بیرون ملک',
+      pradesh: 'صوبہ',
+      khel: 'کھیل',
+      dharm: 'دھرم',
+      manoranjan: 'تفریح',
+      vichar: 'خیال',
+      lifestyle: 'طرز زندگی',
+      tech: 'ٹیک',
+      epaper: 'ای پیپر',
+      bhavishya: 'نجوم',
+      bhavishyavani: 'پیش گوئی',
+      rashifal: 'راشی پھل',
+      panchang: 'پنچانگ',
+      vrat: 'ورات',
+    },
+    header: {
+      epaper: 'ای پیپر پڑھیں',
+      login: 'لاگ ان',
+      search: 'تلاش',
+      वर्ग: 'زمرہ',
+      contact: 'رابطہ',
+      cityPlaceholder: 'کشی نگر',
+    },
+    breaking: 'بریکنگ نیوز',
+    common: {
+      readMore: 'مزید دیکھیں',
+      live: 'لائیو',
+      trending: 'مقبول خبریں',
+      contactEditor: 'مدیر',
+      bhopalMP: 'کشی نگر (اتر پردیش)',
+      kushinagarUP: 'کشی نگر (اتر پردیش)',
+      locationShort: 'کشی نگر',
+      subscribe: 'سبسکرائب',
+    },
+    home: {
+      pradeshTitle: 'صوبہ • اتر پردیش / کشی نگر',
+      techDesk: 'ٹیک',
+      khelTitle: 'کھیل',
+      manoranjan: 'تفریح',
+      dharmJyotish: 'دھرم • نجوم',
+      videoNews: 'ویڈیو',
+      vicharTitle: 'خیال',
+      factCheck: 'فیکٹ چیک',
+      bhavishyaTitle: 'نجوم',
+    },
+    footer: {
+      tagline: 'چانکیہ بھارت — کھوجی سمाचार — کشی نگر سے شائع ہونے والی خیالات، مثبت، قومی، جرائم، مذہب، علم نجوم کی خبریں۔',
+      mainNews: 'اہم خبریں',
+      otherSections: 'دیگر زمرے',
+      company: 'کمپنی',
+      about: 'ہمارے بارے میں',
+      contact: 'رابطہ',
+      advertise: 'اشتہار',
+    },
+    epaper: {
+      title: 'ای پیپر — اخبار جیسا',
+      edition: 'ایڈیشن',
+      download: 'ڈاؤن لوڈ',
+    }
+  },
+  bn: {
+    nav: {
+      home: 'হোম',
+      deshVidesh: 'দেশ-বিদেশ',
+      pradesh: 'রাজ্য',
+      khel: 'খেলা',
+      dharm: 'ধর্ম',
+      manoranjan: 'বিনোদন',
+      vichar: 'মতামত',
+      lifestyle: 'লাইফস্টাইল',
+      tech: 'টেক',
+      epaper: 'ই-পেপার',
+      bhavishya: 'ভবিষ্যৎ',
+      bhavishyavani: 'ভবিষ্যদ্বাণী',
+      rashifal: 'রাশিফল',
+      panchang: 'পঞ্জিকা',
+      vrat: 'ব্রত-উৎসব',
+    },
+    header: {
+      epaper: 'ই-পেপার পড়ুন',
+      login: 'লগইন',
+      search: 'খুঁজুন',
+      वर्ग: 'বিভাগ',
+      contact: 'যোগাযোগ',
+      cityPlaceholder: 'কুশীনগর',
+    },
+    breaking: 'ব্রেকিং নিউজ',
+    common: {
+      readMore: 'আরও দেখুন',
+      live: 'লাইভ',
+      trending: 'জনপ্রিয় খবর',
+      contactEditor: 'সম্পাদক',
+      bhopalMP: 'কুশীনগর (উত্তর প্রদেশ)',
+      kushinagarUP: 'কুশীনগর (উত্তর প্রদেশ)',
+      locationShort: 'কুশীনগর',
+      subscribe: 'সাবস্ক্রাইব',
+    },
+    home: {
+      pradeshTitle: 'রাজ্য • উত্তর প্রদেশ / কুশীনগর',
+      techDesk: 'টেক',
+      khelTitle: 'খেলা',
+      manoranjan: 'বিনোদন',
+      dharmJyotish: 'ধর্ম • জ্যোতিষ',
+      videoNews: 'ভিডিও',
+      vicharTitle: 'মতামত',
+      factCheck: 'ফ্যাক্ট চেক',
+      bhavishyaTitle: 'ভবিষ্যৎ',
+    },
+    footer: {
+      tagline: 'চাণক্য ভারত — খোঁজী সমাচার — কুশীনগর থেকে প্রকাশিত আদর্শ, ইতিবাচক, দেশ-বিদেশ, অপরাধ, ধর্ম, জ্যোতিষ, লাইফস্টাইল খবর।',
+      mainNews: 'প্রধান খবর',
+      otherSections: 'অন্যান্য বিভাগ',
+      company: 'কোম্পানি',
+      about: 'আমাদের সম্পর্কে',
+      contact: 'যোগাযোগ',
+      advertise: 'বিজ্ঞাপন',
+    },
+    epaper: {
+      title: 'ই-পেপার — খবরের কাগজের মতো',
+      edition: 'সংস্করণ',
+      download: 'ডাউনলোড',
+    }
   }
 } as const;
 
-export type Lang = 'hi' | 'en';
-export const getT = (lang: Lang) => translations[lang];
+export type Lang = 'hi' | 'en' | 'bho' | 'ur' | 'bn';
+export const languageOptions: { code: Lang; label: string; nativeLabel: string }[] = [
+  { code: 'hi', label: 'Hindi', nativeLabel: 'हिंदी' },
+  { code: 'en', label: 'English', nativeLabel: 'English' },
+  { code: 'bho', label: 'Bhojpuri', nativeLabel: 'भोजपुरी' },
+  { code: 'ur', label: 'Urdu', nativeLabel: 'اردو' },
+  { code: 'bn', label: 'Bengali', nativeLabel: 'বাংলা' },
+];
+export const getT = (lang: Lang) => (translations as any)[lang] ?? translations.hi;

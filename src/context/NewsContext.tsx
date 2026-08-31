@@ -48,8 +48,8 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [language, setLanguage] = useState<LanguageCode>(() => {
     const saved = localStorage.getItem('ir_lang') as LanguageCode | null;
-    // default to Hindi for Chanakya Bharat
-    if (saved === 'en' || saved === 'hi') return saved;
+    // default to Hindi for Chanakya Bharat; supports hi/en/bho/ur/bn
+    if (saved === 'en' || saved === 'hi' || saved === 'bho' || saved === 'ur' || saved === 'bn') return saved;
     return 'hi';
   });
 
@@ -87,7 +87,10 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     localStorage.setItem('ir_lang', language);
-    document.documentElement.lang = language === 'hi' ? 'hi' : 'en';
+    // map bho->hi, ur->ur, bn->bn for html lang attribute; keep hi as primary
+    const htmlLangMap: Record<LanguageCode, string> = { hi: 'hi', en: 'en', bho: 'hi', ur: 'ur', bn: 'bn' };
+    document.documentElement.lang = htmlLangMap[language] || 'hi';
+    document.documentElement.dir = language === 'ur' ? 'rtl' : 'ltr';
   }, [language]);
 
   useEffect(() => {

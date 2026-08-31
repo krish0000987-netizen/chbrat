@@ -122,11 +122,11 @@ export const EpaperPage: React.FC = () => {
                 <h1 className="text-[40px] sm:text-[56px] font-black leading-none tracking-tighter text-[#8B0000]" style={{ fontFamily:'Noto Serif Devanagari, serif'}}>चाणक्य भारत</h1>
                 <p className="text-[11px] font-bold tracking-[0.3em] uppercase text-slate-700 -mt-1">खोजी समाचार • कुशीनगर • उत्तर प्रदेश • 9919529245</p>
               </div>
-              <img src="/assets/founder.jpg" alt="संपादक" className="h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover border-2 border-[#8B0000] hidden sm:block" />
+              <div className="hidden sm:block h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-amber-50 border-2 border-[#8B0000] flex items-center justify-center text-[10px] font-black text-[#8B0000] text-center leading-tight">खोजी<br/>समाचार</div>
             </div>
             <div className="flex justify-between items-center text-[9px] font-bold border-t border-black mt-2 pt-1">
-              <span>संस्थापक संपादक: चाणक्य भारत संपादक मंडल • कुशीनगर (उत्तर प्रदेश)</span>
-              <span className="hidden sm:inline">संपर्क: 9919529245 • कुशीनगर (उत्तर प्रदेश) • खोजी समाचार</span>
+              <span>प्रकाशक: चाणक्य भारत मीडिया • कुशीनगर (उत्तर प्रदेश)</span>
+              <span className="hidden sm:inline">संपर्क: 9919529245 • खोजी समाचार</span>
               <span>शनिवार, 30 अगस्त 2026 • भाद्रपद शुक्ल सप्तमी</span>
             </div>
           </div>
@@ -145,7 +145,7 @@ export const EpaperPage: React.FC = () => {
               <h2 className="text-[26px] font-black leading-tight mt-2 mb-2">{pagesInfo[selectedPage-1].lead}</h2>
               <p className="text-[11px] font-bold text-slate-600 border-b border-dashed pb-2">कुशीनगर/कुशीनगर • विशेष संवाददाता • ई-पेपर डेस्क</p>
               <p className="text-[12px] leading-relaxed mt-3 text-justify">
-                {selectedPage===1 && 'प्रधानमंत्री ने कुशीनगर धाम में आयोजित भव्य समारोह में ₹4500 करोड़ की विकास परियोजनाओं का लोकार्पण किया। इस अवसर पर उन्होंने कहा कि कुशीनगर की आध्यात्मिक विरासत को आधुनिक सुविधाओं से जोड़ा जाएगा। कामदगिरि परिक्रमा पथ, रामघाट सौंदर्यीकरण और कुशीनगर-कुशीनगर फोरलेन प्रमुख योजनाएं हैं। मुख्यमंत्री ने संपादक चाणक्य भारत संपादक मंडल द्वारा उठाए गए स्थानीय मुद्दों पर शीघ्र कार्रवाई का आश्वासन दिया।'}
+                {selectedPage===1 && 'प्रधानमंत्री ने कुशीनगर धाम में आयोजित भव्य समारोह में ₹4500 करोड़ की विकास परियोजनाओं का लोकार्पण किया। इस अवसर पर उन्होंने कहा कि कुशीनगर की आध्यात्मिक विरासत को आधुनिक सुविधाओं से जोड़ा जाएगा। कामदगिरि परिक्रमा पथ, रामघाट सौंदर्यीकरण और कुशीनगर फोरलेन प्रमुख योजनाएं हैं।'}
                 {selectedPage===2 && 'कुशीनगर मेट्रो के ट्रायल रन में 95% सफलता, मेट्रो रेल सुरक्षा आयुक्त ने हरी झंडी दी। एमपी नगर से एम्स तक 8 मिनट में सफर। कुशीनगरवासियों में उत्साह, दिसंबर से आम जनता के लिए खुलेगा।'}
                 {selectedPage===3 && 'कामदगिरि की 5 किमी परिक्रमा में आज 50 हजार से अधिक श्रद्धालु पहुंचे। चाणक्य भारत धर्म डेस्क के अनुसार आज शनिवार को शनि पूजन का विशेष महत्व, भक्तों ने सरसों तेल चढ़ाया।'}
                 {selectedPage===4 && 'संपादकीय: सकारात्मक पत्रकारिता ही समाज को दिशा देती है। चाणक्य भारत का ध्येय — वैचारिक, निष्पक्ष और जनहितकारी खबर। विचार पृष्ठ पर विशेष लेख: “उत्तर प्रदेश में जल संरक्षण”।'}
@@ -162,7 +162,7 @@ export const EpaperPage: React.FC = () => {
                 शेष पृष्ठ {selectedPage < totalPages ? selectedPage+1 : 1} पर... स्थानीय संवाददाताओं की विस्तृत रिपोर्ट पढ़ें। चाणक्य भारत ई-पेपर में हर खबर असली अखबार के लेआउट में — ज़ूम, शेयर और प्रिंट सुविधा उपलब्ध।
               </p>
               <div className="mt-auto pt-3 border-t border-dashed text-[10px] bg-amber-50 p-2">
-                <span className="font-black text-[#8B0000]">📞 संपर्क:</span> संपादक चाणक्य भारत संपादक मंडल — 9919529245 | ✉️ chanakyabharatnews@gmail.com | 📍 कुशीनगर (उत्तर प्रदेश)
+                <span className="font-black text-[#8B0000]">📞 संपर्क:</span> चाणक्य भारत — 9919529245 | 📍 कुशीनगर (उत्तर प्रदेश) • खोजी समाचार
               </div>
             </div>
 
@@ -208,7 +208,7 @@ export const EpaperPage: React.FC = () => {
           </div>
 
           <div className="border-t-[3px] border-black pt-1 flex justify-between text-[8px] font-bold">
-            <span>मुद्रक एवं प्रकाशक: चाणक्य भारत संपादक मंडल द्वारा चाणक्य भारत मीडिया, कुशीनगर (उत्तर प्रदेश) से प्रकाशित</span>
+            <span>मुद्रक एवं प्रकाशक: चाणक्य भारत मीडिया, कुशीनगर (उत्तर प्रदेश) से प्रकाशित</span>
             <span>पृष्ठ {selectedPage} / {totalPages}</span>
           </div>
         </div>

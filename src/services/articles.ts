@@ -44,7 +44,7 @@ function getLocal(): DbArticle[] {
 }
 function setLocal(data: DbArticle[]) { try { localStorage.setItem(LS_KEY, JSON.stringify(data)); localStorage.setItem('ir_articles', JSON.stringify(data.map(d=>({
   id:d.id, slug:d.slug, title:d.title, hindiTitle:d.title_hi, subheadline:d.subheadline||'', content: d.content.split('\n\n'), category: (d.categories?.name as any)||'India',
-  author:{ id: d.authors?.id||'auth-1', name: d.authors?.name||'Chanakya Bharat Editorial Team', role:'Reporter', avatar: d.authors?.avatar_url||'', bio:'' },
+  author:{ id: d.authors?.id||'auth-1', name: d.authors?.name||'चाणक्य भारत डेस्क', role:'Reporter', avatar: d.authors?.avatar_url||'', bio:'' },
   publishedAt: d.published_at||d.created_at, readTimeMinutes:4, heroImage:d.hero_image_url||'', imageCaption:d.hero_image_caption||'',
   isBreaking:d.is_breaking, isLeadHero:d.is_lead, isTrending:d.is_trending, tags:[], viewsCount:d.views_count, commentsCount:0, sharesCount:0
 })))); } catch {} }

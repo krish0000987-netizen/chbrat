@@ -3,14 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 import { useNews } from '../../context/NewsContext';
 import { MegaMenu } from './MegaMenu';
 import { Search, Sun, Moon, Menu, MapPin, ChevronDown, Newspaper, Sparkles, X } from 'lucide-react';
-import { getT } from '../../lib/i18n';
+import { getT, languageOptions } from '../../lib/i18n';
 
 const citiesHi = ['कुशीनगर', 'पडरौना', 'गोरखपुर', 'देवरिया', 'महराजगंज', 'सिद्धार्थनगर', 'कप्तानगंज'];
 const citiesEn = ['Kushinagar', 'Padrauna', 'Gorakhpur', 'Deoria', 'Maharajganj', 'Siddharthnagar', 'Kaptanganj'];
 
 export const GlobalHeader: React.FC = () => {
   const { theme, toggleTheme, setIsSearchOpen, language, setLanguage } = useNews();
-  const t = getT(language === 'en' ? 'en' : 'hi');
+  const t = getT(language as any);
   const cities = language === 'en' ? citiesEn : citiesHi;
   const [selectedCity, setSelectedCity] = useState(cities[0]);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
@@ -68,10 +68,12 @@ export const GlobalHeader: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            {/* Language Toggle */}
-            <div className="flex items-center bg-white/20 rounded-full p-0.5">
-              <button onClick={() => setLanguage('hi')} className={`px-2 sm:px-3 py-1 rounded-full text-[11px] font-black transition-colors ${language==='hi' ? 'bg-white text-[#8B0000]' : 'text-white hover:bg-white/10'}`}>हिंदी</button>
-              <button onClick={() => setLanguage('en')} className={`px-2 sm:px-3 py-1 rounded-full text-[11px] font-black transition-colors ${language==='en' ? 'bg-white text-[#8B0000]' : 'text-white hover:bg-white/10'}`}>EN</button>
+            {/* 5-Language Selector */}
+            <div className="flex items-center bg-white text-[#8B0000] rounded-full px-2 py-0.5 gap-1">
+              <span className="text-[11px]">🌐</span>
+              <select value={language} onChange={e=>setLanguage(e.target.value as any)} className="bg-transparent border-none outline-none text-[11px] font-black py-1 pr-1 cursor-pointer">
+                {languageOptions.map(o=> <option key={o.code} value={o.code}>{o.nativeLabel}</option>)}
+              </select>
             </div>
 
             <Link to="/epaper" className="hidden md:flex items-center gap-1 font-bold bg-white text-[#8B0000] px-2.5 py-1 rounded-full hover:bg-amber-100 transition-colors">
@@ -120,27 +122,16 @@ export const GlobalHeader: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <div className="hidden md:flex items-center gap-2 bg-amber-50 dark:bg-slate-900 border border-amber-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5">
-              <img src="/assets/founder.jpg" alt="editor" className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-[#8B0000] shrink-0" />
+            <div className="hidden md:flex items-center gap-2 bg-amber-50 dark:bg-slate-900 border border-amber-200 dark:border-slate-800 rounded-lg px-3 py-1.5">
               <div className="text-left leading-tight">
-                <p className="text-xs font-bold font-devanagari text-slate-900 dark:text-slate-100">{language==='en'?'Chanakya Bharat Editorial Team':'चाणक्य भारत संपादक मंडल'}</p>
-                <p className="text-[10px] text-[#8B0000] font-bold">{language==='en'?'Editor':'संपादक'} • {(t.common as any).kushinagarUP || (t.common as any).bhopalMP}</p>
-                <p className="text-[9px] text-slate-500">9919529245</p>
+                <p className="text-xs font-bold text-[#8B0000]">खोजी समाचार</p>
+                <p className="text-[10px] font-bold text-slate-700 dark:text-slate-300">{language==='en'?'Kushinagar (UP)':'कुशीनगर (उत्तर प्रदेश)'} • 9919529245</p>
               </div>
             </div>
             <button onClick={() => setIsSearchOpen(true)} className="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-[#8B0000] hover:text-white transition-colors" title={t.header.search}>
               <Search className="w-4 h-4" />
             </button>
           </div>
-        </div>
-
-        <div className="md:hidden mt-2 flex items-center justify-center gap-2 bg-amber-50 dark:bg-slate-900 border border-amber-200 dark:border-slate-800 rounded-lg px-3 py-2">
-          <img src="/assets/founder.jpg" alt="editor" className="w-8 h-8 rounded-full object-cover border-2 border-[#8B0000]" />
-          <div className="text-left">
-            <p className="text-xs font-bold font-devanagari">{language==='en'?'Chanakya Bharat Editorial Team (Editor)':'चाणक्य भारत संपादक मंडल (संपादक)'}</p>
-            <p className="text-[10px] text-slate-600">{(t.common as any).kushinagarUP || (t.common as any).bhopalMP} • 9919529245</p>
-          </div>
-          <a href="tel:9919529245" className="ml-auto text-[9px] bg-[#8B0000] text-white px-2 py-1 rounded font-bold">📞 9919529245</a>
         </div>
       </div>
 
@@ -187,10 +178,11 @@ export const GlobalHeader: React.FC = () => {
 
         {isMobileNavOpen && (
           <div className="lg:hidden bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border-t border-[#5a0000] p-3 space-y-3 max-h-[70vh] overflow-y-auto">
-            {/* Mobile language switch */}
-            <div className="flex gap-2">
-              <button onClick={()=>setLanguage('hi')} className={`flex-1 py-2 rounded-full font-bold border ${language==='hi'?'bg-[#8B0000] text-white border-[#8B0000]':'bg-white border-slate-200'}`}>हिंदी</button>
-              <button onClick={()=>setLanguage('en')} className={`flex-1 py-2 rounded-full font-bold border ${language==='en'?'bg-[#8B0000] text-white border-[#8B0000]':'bg-white border-slate-200'}`}>English</button>
+            {/* Mobile 5-language switch */}
+            <div className="grid grid-cols-3 gap-2">
+              {languageOptions.map(o=> (
+                <button key={o.code} onClick={()=>setLanguage(o.code as any)} className={`py-2 rounded-full font-bold border text-xs ${language===o.code?'bg-[#8B0000] text-white border-[#8B0000]':'bg-white border-slate-200'}`}>{o.nativeLabel}</button>
+              ))}
             </div>
             <div className="grid grid-cols-2 gap-2">
               {mainCategories.map(cat => (
