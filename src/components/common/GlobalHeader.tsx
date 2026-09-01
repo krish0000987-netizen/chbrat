@@ -47,7 +47,7 @@ export const GlobalHeader: React.FC = () => {
   ];
 
   return (
-    <header className="bg-white dark:bg-[#0B0F17] text-[#111827] dark:text-slate-100 border-b border-slate-200 dark:border-slate-800 transition-colors">
+    <header className="sticky top-0 z-50 bg-white dark:bg-[#0B0F17] text-[#111827] dark:text-slate-100 border-b border-slate-200 dark:border-slate-800 transition-colors shadow-sm">
       {/* TOP BAR */}
       <div className="bg-[#8B0000] dark:bg-[#7a0000] text-white text-[10px] sm:text-[11px] py-1.5 px-3 sm:px-4 font-sans-ui">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
@@ -136,7 +136,7 @@ export const GlobalHeader: React.FC = () => {
       </div>
 
       {/* PRIMARY NAV */}
-      <nav className="bg-[#8B0000] dark:bg-[#7a0000] text-white sticky top-0 z-40 shadow-md">
+      <nav className="bg-[#8B0000] dark:bg-[#7a0000] text-white shadow-md">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 flex items-center">
           <button onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)} className="hidden lg:flex items-center gap-1.5 py-2.5 px-3 bg-[#5a0000] hover:bg-black font-bold text-xs uppercase tracking-wider shrink-0 mr-2 rounded">
             <Menu className="w-4 h-4" /> {t.header.वर्ग}
