@@ -2,9 +2,10 @@ import { createClient } from '@supabase/supabase-js';
 
 // Vite exposes only VITE_ prefixed vars to browser
 const _url = (import.meta as any).env.VITE_SUPABASE_URL as string | undefined
-  || (import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
+  || (import.meta as any).env.NEXT_PUBLIC_SUPABASE_URL as string | undefined;
 const _anonKey = ((import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined)
-  || ((import.meta as any).env.VITE_SUPABASE_ANON_KEY as string | undefined);
+  || ((import.meta as any).env.VITE_SUPABASE_ANON_KEY as string | undefined)
+  || ((import.meta as any).env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string | undefined);
 
 const url = _url || 'https://rvfnauieyvomeftwrbxn.supabase.co';
 const anonKey = _anonKey || 'sb_publishable__o0ts74iGN8rnOJd0Y_mEA_YFXHlUkT';

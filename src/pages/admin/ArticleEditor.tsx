@@ -42,11 +42,30 @@ export const ArticleEditor: React.FC = () => {
 
   const onTitle = (v:string)=> setForm((f:any)=>({ ...f, title:v, slug: f.slug || slugify(v) }));
 
+  const [imgUploading, setImgUploading] = useState(false);
   const handleImage = async (e:React.ChangeEvent<HTMLInputElement>)=>{
     const file=e.target.files?.[0]; if(!file) return;
-    const m=await mediaService.upload(file, 'article-images');
-    setForm((f:any)=>({ ...f, hero_image_url: (m as any).public_url }));
-    setPreviewImg((m as any).public_url);
+    // immediate preview via base64 so UI feels instant even if upload is slow
+    const localPreview = await new Promise<string>((res)=>{
+      const r=new FileReader(); r.onload=()=>res(r.result as string); r.readAsDataURL(file);
+    });
+    setPreviewImg(localPreview);
+    setForm((f:any)=>({ ...f, hero_image_url: localPreview }));
+    setImgUploading(true);
+    try{
+      const m=await mediaService.upload(file, 'article-images');
+      const url = (m as any).public_url || localPreview;
+      setForm((f:any)=>({ ...f, hero_image_url: url }));
+      setPreviewImg(url);
+    }catch(err:any){
+      // fallback already set to base64 preview — keep it so article still saves with image
+      console.warn('upload failed, keeping base64 preview', err?.message);
+      alert('Supabase upload failed — using local preview. Article will still save with image (base64). Check Supabase bucket/Rls if you want hosted URLs.');
+    }finally{
+      setImgUploading(false);
+      // reset input so same file can be re-selected
+      e.target.value='';
+    }
   };
 
   const save = async (publish=false)=>{
@@ -151,13 +170,14 @@ export const ArticleEditor: React.FC = () => {
           </div>
 
           <div className="bg-white dark:bg-slate-900 rounded-2xl border p-5 space-y-3">
-            <h3 className="font-black text-sm flex items-center gap-2"><ImageIcon className="w-4 h-4" /> Hero Image</h3>
-            {previewImg ? <img src={previewImg} alt="" className="w-full h-32 object-cover rounded-xl border" /> : <div className="w-full h-32 bg-slate-100 rounded-xl border flex items-center justify-center text-slate-400 text-xs">No image</div>}
-            <input value={form.hero_image_url} onChange={e=>{setForm({...form, hero_image_url:e.target.value}); setPreviewImg(e.target.value);}} placeholder="Image URL or upload" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-xs font-mono" />
-            <label className="flex items-center gap-2 px-3 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold cursor-pointer justify-center">
-              <Upload className="w-4 h-4" /> Upload to Supabase
-              <input type="file" accept="image/*" className="hidden" onChange={handleImage} />
+            <h3 className="font-black text-sm flex items-center gap-2"><ImageIcon className="w-4 h-4" /> Hero Image {imgUploading && <span className="ml-auto text-[11px] font-bold text-amber-600 animate-pulse">Uploading...</span>}</h3>
+            {previewImg ? <img src={previewImg} alt="" className="w-full h-32 sm:h-40 object-cover rounded-xl border" /> : <div className="w-full h-32 bg-slate-100 rounded-xl border flex items-center justify-center text-slate-400 text-xs">No image</div>}
+            <input value={form.hero_image_url} onChange={e=>{setForm({...form, hero_image_url:e.target.value}); setPreviewImg(e.target.value);}} placeholder="Image URL or upload (data: URL works)" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-xs font-mono" />
+            <label className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold cursor-pointer justify-center ${imgUploading ? 'bg-slate-400 text-white' : 'bg-slate-900 text-white hover:bg-black'}`}>
+              <Upload className="w-4 h-4" /> {imgUploading ? 'Uploading...' : 'Upload to Supabase'}
+              <input type="file" accept="image/*" className="hidden" onChange={handleImage} disabled={imgUploading} />
             </label>
+            <p className="text-[11px] text-slate-500">If Supabase bucket is missing, image is saved as base64 and will still show on site + mobile (no external URL needed).</p>
             <input value={form.hero_image_caption} onChange={e=>setForm({...form, hero_image_caption:e.target.value})} placeholder="Caption / Credit" className="w-full px-3 py-2 rounded-xl border bg-slate-50 text-xs" />
           </div>
 

@@ -49,6 +49,22 @@
   animation-play-state: paused;
 }
 
+/* Mobile-friendly article content */
+.article-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 1.2em auto;
+  display: block;
+}
+.article-body iframe,
+.article-body video {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+}
+
 /* Print Styles */
 @media print {
   header, footer, .no-print {
