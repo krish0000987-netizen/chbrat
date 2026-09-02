@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { mockArticles, mockLiveUpdates } from '../data/mockNewsData';
 import { Article, CategoryType, LanguageCode, LiveUpdate, UserProfile } from '../types';
 import { supabase } from '../lib/supabase';
+import { dbArticleToArticle, getLocal } from '../services/articles';
 
 interface NewsContextType {
   theme: 'light' | 'dark';
@@ -9,6 +10,7 @@ interface NewsContextType {
   language: LanguageCode;
   setLanguage: (lang: LanguageCode) => void;
   articles: Article[];
+  refreshArticles: () => void;
   savedArticleIds: string[];
   toggleSaveArticle: (articleId: string) => void;
   isArticleSaved: (articleId: string) => boolean;
@@ -40,6 +42,27 @@ const initialProfile: UserProfile = {
   followedAuthors: []
 };
 
+function loadWebsiteArticles(): Article[] {
+  try {
+    const localCj = localStorage.getItem('cj_articles_db');
+    if (localCj) {
+      const parsed = JSON.parse(localCj);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        const published = parsed.filter((x: any) => x.status === 'published');
+        if (published.length > 0) {
+          return published.map(dbArticleToArticle);
+        }
+      }
+    }
+    const localIr = localStorage.getItem('ir_articles');
+    if (localIr) {
+      const parsed = JSON.parse(localIr);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) {}
+  return getLocal().filter(x => x.status === 'published').map(dbArticleToArticle);
+}
+
 export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const local = localStorage.getItem('ir_theme');
@@ -48,22 +71,11 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [language, setLanguage] = useState<LanguageCode>(() => {
     const saved = localStorage.getItem('ir_lang') as LanguageCode | null;
-    // default to Hindi for Chanakya Bharat; supports hi/en/bho/ur/bn
     if (saved === 'en' || saved === 'hi' || saved === 'bho' || saved === 'ur' || saved === 'bn') return saved;
     return 'hi';
   });
 
-  const [articles, setArticles] = useState<Article[]>(() => {
-    const localArticles = localStorage.getItem('ir_articles');
-    if (localArticles) {
-      try {
-        return JSON.parse(localArticles);
-      } catch (e) {
-        return mockArticles;
-      }
-    }
-    return mockArticles;
-  });
+  const [articles, setArticles] = useState<Article[]>(loadWebsiteArticles);
   const [dbLoaded, setDbLoaded] = useState(false);
 
   const [savedArticleIds, setSavedArticleIds] = useState<string[]>(() => {
@@ -76,6 +88,27 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [fontSize, setFontSize] = useState<'sm' | 'md' | 'lg' | 'xl'>('md');
   const [speechPlayingId, setSpeechPlayingId] = useState<string | null>(null);
 
+  const refreshArticles = () => {
+    setArticles(loadWebsiteArticles());
+  };
+
+  // Instant reactive synchronization with admin panel updates
+  useEffect(() => {
+    const handleUpdate = (e: any) => {
+      if (e?.detail && Array.isArray(e.detail) && e.detail.length > 0) {
+        setArticles(e.detail);
+      } else {
+        setArticles(loadWebsiteArticles());
+      }
+    };
+    window.addEventListener('cb_articles_updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+    return () => {
+      window.removeEventListener('cb_articles_updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+    };
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('ir_theme', theme);
     if (theme === 'dark') {
@@ -87,7 +120,6 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     localStorage.setItem('ir_lang', language);
-    // map bho->hi, ur->ur, bn->bn for html lang attribute; keep hi as primary
     const htmlLangMap: Record<LanguageCode, string> = { hi: 'hi', en: 'en', bho: 'hi', ur: 'ur', bn: 'bn' };
     document.documentElement.lang = htmlLangMap[language] || 'hi';
     document.documentElement.dir = language === 'ur' ? 'rtl' : 'ltr';
@@ -97,11 +129,7 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('ir_saved', JSON.stringify(savedArticleIds));
   }, [savedArticleIds]);
 
-  useEffect(() => {
-    localStorage.setItem('ir_articles', JSON.stringify(articles));
-  }, [articles]);
-
-  // Fetch published articles from Supabase — Supabase is source of truth
+  // Fetch published articles from Supabase if available
   useEffect(() => {
     let cancelled = false;
     const fetchFromSupabase = async () => {
@@ -113,15 +141,7 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .order('published_at', { ascending: false })
           .limit(50);
         if (!cancelled && !error && data && data.length > 0) {
-          const mapped: Article[] = (data as any[]).map((r) => ({
-            id: r.id, slug: r.slug, title: r.title, hindiTitle: r.title_hi || r.title,
-            subheadline: r.subheadline || r.excerpt || '', content: typeof r.content === 'string' ? [r.content] : r.content || [],
-            category: ((r.categories?.name as CategoryType) || 'India') as CategoryType,
-            subcategory: r.subcategory, state: r.state_id || undefined, city: r.city_id || undefined,
-            author: r.authors ? { id: r.authors.id, name: r.authors.name, role: 'Reporter', avatar: r.authors.avatar_url || 'https://placehold.co/100x100', bio: '' } : mockArticles[0].author,
-            publishedAt: r.published_at || r.created_at, readTimeMinutes: 4, heroImage: r.hero_image_url || 'https://placehold.co/800x450', imageCaption: r.hero_image_caption || '',
-            isBreaking: r.is_breaking, isLeadHero: r.is_lead, isTrending: r.is_trending, isExclusive: r.is_exclusive, tags: [], viewsCount: r.views_count || 0, commentsCount: 0, sharesCount: 0,
-          }));
+          const mapped: Article[] = (data as any[]).map(dbArticleToArticle);
           setArticles(mapped);
           setDbLoaded(true);
           return true;
@@ -130,10 +150,8 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return false;
     };
     fetchFromSupabase();
-    // realtime subscription for breaking/live updates (poll as fallback every 30s)
     const iv = setInterval(() => { if (!cancelled) fetchFromSupabase(); }, 30000);
-    const channel = (supabase as any).channel?.('articles-public')?.on('postgres_changes', { event: '*', schema: 'public', table: 'articles' }, () => fetchFromSupabase())?.subscribe?.();
-    return () => { cancelled = true; clearInterval(iv); try { (supabase as any).removeChannel?.(channel); } catch {} };
+    return () => { cancelled = true; clearInterval(iv); };
   }, []);
 
   const toggleTheme = () => {
@@ -158,7 +176,7 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
       viewsCount: 120,
       commentsCount: 0,
       sharesCount: 10,
-      isDemo: true
+      isDemo: false
     };
     setArticles(prev => [newArticle, ...prev]);
   };
@@ -198,6 +216,7 @@ export const NewsProvider: React.FC<{ children: React.ReactNode }> = ({ children
         language,
         setLanguage,
         articles,
+        refreshArticles,
         savedArticleIds,
         toggleSaveArticle,
         isArticleSaved,

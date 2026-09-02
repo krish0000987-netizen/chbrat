@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useNews } from '../context/NewsContext';
 import { AdvertisementSlot } from '../components/common/AdvertisementSlot';
 import { StoryCard } from '../components/news/StoryCard';
+import { Article } from '../types';
+import { articlesService, dbArticleToArticle } from '../services/articles';
 import { 
   Bookmark, Share2, Volume2, VolumeX, Printer, Clock, Eye, MessageSquare, 
   ChevronRight, Twitter, Mail, MapPin, ThumbsUp, Send, CheckCircle2, User, Sparkles, AlertCircle, ArrowLeft
@@ -29,7 +31,34 @@ export const ArticlePage: React.FC = () => {
   const [likesCount, setLikesCount] = useState(142);
   const [hasLiked, setHasLiked] = useState(false);
 
-  const article = articles.find(a => a.id === articleId) || articles[0];
+  const decodedId = decodeURIComponent(articleId || '');
+  const matched = articles.find(a =>
+    a.id === articleId ||
+    a.slug === articleId ||
+    a.slug === decodedId ||
+    a.id === decodedId
+  );
+
+  const [asyncArticle, setAsyncArticle] = useState<Article | null>(null);
+
+  useEffect(() => {
+    if (!matched && articleId) {
+      articlesService.getBySlug(decodedId).then(dbArt => {
+        if (dbArt) setAsyncArticle(dbArticleToArticle(dbArt));
+        else {
+          articlesService.getById(decodedId).then(byDbId => {
+            if (byDbId) setAsyncArticle(dbArticleToArticle(byDbId));
+          }).catch(() => {});
+        }
+      }).catch(() => {
+        articlesService.getById(decodedId).then(byDbId => {
+          if (byDbId) setAsyncArticle(dbArticleToArticle(byDbId));
+        }).catch(() => {});
+      });
+    }
+  }, [articleId, matched, decodedId]);
+
+  const article = matched || asyncArticle || articles[0];
 
   if (!article) {
     return (

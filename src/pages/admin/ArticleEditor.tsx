@@ -11,6 +11,7 @@ import {
   Save, Eye, ArrowLeft, Upload, Image as ImageIcon, Send, Settings,
   ChevronDown, CheckCircle2, Sparkles, AlertCircle, X, Globe, MapPin, Tag
 } from 'lucide-react';
+import { useNews } from '../../context/NewsContext';
 
 function slugify(t: string) {
   return t.toLowerCase().trim().replace(/[^a-z0-9\u0900-\u097F]+/g, '-').replace(/^-|-$/g, '');
@@ -49,6 +50,7 @@ export const ArticleEditor: React.FC = () => {
   const { id } = useParams();
   const isNew = !id || id === 'new';
   const nav = useNavigate();
+  const { refreshArticles } = useNews();
 
   const [cats, setCats] = useState<any[]>([]);
   const [authors, setAuthors] = useState<any[]>([]);
@@ -209,11 +211,13 @@ export const ArticleEditor: React.FC = () => {
     try {
       if (isNew) {
         const created = await articlesService.create(payload);
+        refreshArticles();
         setSaveToast(publish ? 'समाचार सफलतापूर्वक प्रकाशित हुआ ✓' : 'ड्राफ्ट सहेजा गया ✓');
         setTimeout(() => setSaveToast(''), 3000);
         nav(`/admin/articles/${created.id}/edit`);
       } else {
         await articlesService.update(id!, payload);
+        refreshArticles();
         setSaveToast(publish ? 'समाचार प्रकाशित हुआ ✓' : 'परिवर्तन सहेजे गए ✓');
         setTimeout(() => setSaveToast(''), 3000);
       }

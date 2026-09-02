@@ -15,11 +15,43 @@ export const HomePage: React.FC = () => {
   const { articles, language } = useNews();
   const t = getT(language==='en'?'en':'hi');
   const isEn = language==='en';
-  const pradeshArticles = articles.filter(a => a.category === 'State News' || a.category === 'City News').slice(0, 4);
-  const khelArticles = articles.filter(a => a.category === 'Cricket' || a.category === 'Sports').slice(0, 4);
-  const manoranjanArticles = articles.filter(a => a.category === 'Entertainment').slice(0, 4);
-  const vicharArticles = articles.filter(a => a.category === 'Opinion' || a.category === 'Explainers').slice(0, 4);
-  const techArticles = articles.filter(a => a.category === 'Technology').slice(0, 2);
+  const isPradesh = (a: any) =>
+    a.category === 'State News' ||
+    a.category === 'City News' ||
+    a.category === 'प्रदेश' ||
+    a.subcategory?.includes('प्रदेश') ||
+    !!a.state;
+
+  const isKhel = (a: any) =>
+    a.category === 'Cricket' ||
+    a.category === 'Sports' ||
+    a.category === 'खेल' ||
+    a.subcategory?.includes('खेल');
+
+  const isManoranjan = (a: any) =>
+    a.category === 'Entertainment' ||
+    a.category === 'Bollywood' ||
+    a.category === 'मनोरंजन' ||
+    a.subcategory?.includes('मनोरंजन');
+
+  const isVichar = (a: any) =>
+    a.category === 'Opinion' ||
+    a.category === 'Explainers' ||
+    a.category === 'विचार' ||
+    a.category === 'धर्म' ||
+    a.subcategory?.includes('विचार') ||
+    a.subcategory?.includes('धर्म');
+
+  const isTech = (a: any) =>
+    a.category === 'Technology' ||
+    a.category === 'टेक' ||
+    a.subcategory?.includes('टेक');
+
+  const pradeshArticles = articles.filter(isPradesh).slice(0, 4);
+  const khelArticles = articles.filter(isKhel).slice(0, 4);
+  const manoranjanArticles = articles.filter(isManoranjan).slice(0, 4);
+  const vicharArticles = articles.filter(isVichar).slice(0, 4);
+  const techArticles = articles.filter(isTech).slice(0, 4);
 
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">

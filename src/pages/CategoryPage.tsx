@@ -45,9 +45,9 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({ defaultCategory }) =
       }
     }
     if (catLower === catKey || catLower.includes(catKey) || catKey.includes(catLower)) return true;
-    if (subLower === catKey || subLower.includes(catKey)) return true;
-    if (a.tags.some(t => t.toLowerCase().includes(catKey))) return true;
-    if (a.title.toLowerCase().includes(catKey)) return true;
+    if (subLower === catKey || subLower.includes(catKey) || (a.subcategory && (a.subcategory.includes(decoded) || decoded.includes(a.subcategory)))) return true;
+    if (a.tags.some(t => t.toLowerCase().includes(catKey) || t.includes(decoded))) return true;
+    if (a.title.toLowerCase().includes(catKey) || (a.hindiTitle && a.hindiTitle.includes(decoded))) return true;
     if ((catKey === 'tech' || catKey === 'technology') && catLower.includes('tech')) return true;
     if ((catKey === 'khel' || catKey === 'cricket') && catLower.includes('cricket')) return true;
     return false;
