@@ -261,10 +261,15 @@ export const ArticlePage: React.FC = () => {
             {article.content.map((paragraph, index) => {
               // Insert Pull Quote after 2nd paragraph if available
               const showPullQuote = index === 2 && article.pullQuotes && article.pullQuotes[0];
+              const isHtml = /<[a-z][\s\S]*>/i.test(paragraph);
 
               return (
                 <React.Fragment key={index}>
-                  <p className="leading-relaxed">{paragraph}</p>
+                  {isHtml ? (
+                    <div className="leading-relaxed font-devanagari space-y-4 prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: paragraph }} />
+                  ) : (
+                    <p className="leading-relaxed font-devanagari">{paragraph}</p>
+                  )}
                   
                   {showPullQuote && (
                     <blockquote className="my-8 p-6 bg-slate-100 dark:bg-slate-900 rounded-xl border-l-4 border-amber-500 font-serif-title font-bold text-lg sm:text-xl text-slate-800 dark:text-slate-200 italic shadow-sm">
