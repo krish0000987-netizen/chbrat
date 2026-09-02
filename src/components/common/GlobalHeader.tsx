@@ -103,7 +103,7 @@ export const GlobalHeader: React.FC = () => {
               </h1>
               <p className="text-[9px] sm:text-[10px] font-bold tracking-[0.2em] text-[#8B0000] dark:text-amber-300 uppercase">खोजी समाचार</p>
               <p className="text-[9px] sm:text-[10px] font-bold tracking-[0.15em] text-slate-600 dark:text-slate-400 uppercase">{language==='en' ? 'Kushinagar • Uttar Pradesh' : 'कुशीनगर • उत्तर प्रदेश'} • 9919529245</p>
-              <p className="text-[8px] text-slate-500 hidden md:block">{language==='en' ? 'EST. 2026 • RNI Approved' : 'स्थापना • 2026 • RNI स्वीकृत'}</p>
+              <p className="text-[8px] text-slate-500 hidden md:block">{language==='en' ? 'RNI Approved' : 'RNI स्वीकृत'}</p>
             </div>
           </Link>
 
@@ -117,7 +117,7 @@ export const GlobalHeader: React.FC = () => {
               {language==='en' ? '"Ideological, positive, national, crime, spiritual, astrology & lifestyle news"' : '“वैचारिक, सकारात्मक, देश-दुनिया, क्राइम, धर्म, ज्योतिष, वास्तु, कैरियर, लाइफस्टाइल सहित विविध खबरें”'}
             </p>
             <div className="flex items-center justify-center gap-2 mt-1 text-[10px] font-bold text-[#8B0000] dark:text-red-400 uppercase tracking-widest">
-              <span>EST. 2026</span><span>•</span><span>{language==='en'?'Kushinagar (UP)':'कुशीनगर (उत्तर प्रदेश)'}</span><span>•</span><span>खोजी समाचार</span>
+              <span>{language==='en'?'Kushinagar (UP)':'कुशीनगर (उत्तर प्रदेश)'}</span><span>•</span><span>खोजी समाचार</span>
             </div>
           </div>
 
